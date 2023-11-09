@@ -2,9 +2,9 @@ package pt.iscte.poo.sokobanstarter;
 
 import pt.iscte.poo.utils.Point2D;
 
-public class Caixote extends GameElement {
+public class Palete extends GameElement {
 	
-	public Caixote(Point2D point2D){
+	public Palete(Point2D point2D){
 		super(point2D);
 	}
 
