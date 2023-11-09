@@ -97,15 +97,12 @@ public class GameEngine implements Observer {
 			Scanner s = new Scanner(f);
 			int y = 0;
 			while (s.hasNext()) {
-				GameElement newElement;
 				String str = s.nextLine();
-				System.out.println(str);
 				// y e' o primeiro digito e x o segundo
 				for (int x = 0; x < GRID_WIDTH; x++) {
+					GameElement newElement;
 					Point2D point = new Point2D(x, y);
-					System.out.println(point.getX() + " " + point.getY());
 					char c = str.charAt(x);
-					System.out.println(c);
 					switch (c) {
 					case '\r':
 					case '\n':
@@ -156,7 +153,6 @@ public class GameEngine implements Observer {
 			}
 			s.close();
 		} catch (FileNotFoundException error) {
-			System.out.println("Erro");
 		}
 	}
 
