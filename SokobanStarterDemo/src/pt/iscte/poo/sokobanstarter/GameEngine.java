@@ -101,6 +101,7 @@ public class GameEngine implements Observer {
 				// y e' o primeiro digito e x o segundo
 				for (int x = 0; x < GRID_WIDTH; x++) {
 					GameElement newElement;
+					boolean hasBG = false;
 					Point2D point = new Point2D(x, y);
 					char c = str.charAt(x);
 					switch (c) {
@@ -110,6 +111,7 @@ public class GameEngine implements Observer {
 					case 'E':
 						bobcat = new Empilhadora(point);
 						newElement = bobcat;
+						hasBG = true;
 						break;
 					case 'C':
 						newElement = new Caixote(point);
@@ -119,6 +121,7 @@ public class GameEngine implements Observer {
 						break;
 					case 'B':
 						newElement = new Bateria(point);
+						hasBG = true;
 						break;
 					case '#':
 						newElement = new Parede(point);
@@ -137,6 +140,7 @@ public class GameEngine implements Observer {
 						break;
 					case 'M':
 						newElement = new Martelo(point);
+						hasBG = true;
 						break;
 					case '%':
 						newElement = new ParedeRachada(point);
@@ -147,6 +151,8 @@ public class GameEngine implements Observer {
 					default:
 						throw new IllegalArgumentException("Unknown symbol");
 					}
+					if (hasBG)
+						tileList.add(new Chao(point));
 					tileList.add(newElement);
 				}
 				y++;
