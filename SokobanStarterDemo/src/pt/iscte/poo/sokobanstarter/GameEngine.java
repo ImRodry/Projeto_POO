@@ -95,60 +95,64 @@ public class GameEngine implements Observer {
 		File f = new File("levels/level" + level + ".txt");
 		try {
 			Scanner s = new Scanner(f);
-			int i = 0;
+			int y = 0;
 			while (s.hasNext()) {
 				GameElement newElement;
+				String str = s.nextLine();
+				System.out.println(str);
 				// y e' o primeiro digito e x o segundo
-				Point2D point = new Point2D(i % GRID_WIDTH, i / GRID_WIDTH);
-				System.out.println(point.getX() + " " + point.getY());
-				String c = s.next();
-				System.out.println(c);
-				switch (c) {
-				case "\r":
-				case "\n":
-					continue;
-				case "E":
-					bobcat = new Empilhadora(point);
-					newElement = bobcat;
-					break;
-				case "C":
-					newElement = new Caixote(point);
-					break;
-				case "X":
-					newElement = new Alvo(point);
-					break;
-				case "B":
-					newElement = new Bateria(point);
-					break;
-				case "#":
-					newElement = new Parede(point);
-					break;
-				case " ":
-					newElement = new Chao(point);
-					break;
-				case "=":
-					newElement = new Vazio(point);
-					break;
-				case "O":
-					newElement = new Buraco(point);
-					break;
-				case "P":
-					newElement = new Parede(point);
-					break;
-				case "M":
-					newElement = new Martelo(point);
-					break;
-				case "%":
-					newElement = new ParedeRachada(point);
-					break;
-				case "T":
-					newElement = new Teleporte(point);
-					break;
-				default:
-					throw new IllegalArgumentException("Unknown symbol");
+				for (int x = 0; x < GRID_WIDTH; x++) {
+					Point2D point = new Point2D(x, y);
+					System.out.println(point.getX() + " " + point.getY());
+					char c = str.charAt(x);
+					System.out.println(c);
+					switch (c) {
+					case '\r':
+					case '\n':
+						continue;
+					case 'E':
+						bobcat = new Empilhadora(point);
+						newElement = bobcat;
+						break;
+					case 'C':
+						newElement = new Caixote(point);
+						break;
+					case 'X':
+						newElement = new Alvo(point);
+						break;
+					case 'B':
+						newElement = new Bateria(point);
+						break;
+					case '#':
+						newElement = new Parede(point);
+						break;
+					case ' ':
+						newElement = new Chao(point);
+						break;
+					case '=':
+						newElement = new Vazio(point);
+						break;
+					case 'O':
+						newElement = new Buraco(point);
+						break;
+					case 'P':
+						newElement = new Parede(point);
+						break;
+					case 'M':
+						newElement = new Martelo(point);
+						break;
+					case '%':
+						newElement = new ParedeRachada(point);
+						break;
+					case 'T':
+						newElement = new Teleporte(point);
+						break;
+					default:
+						throw new IllegalArgumentException("Unknown symbol");
+					}
+					tileList.add(newElement);
 				}
-				i++;
-				tileList.add(newElement);
+				y++;
 			}
 			s.close();
 		} catch (FileNotFoundException error) {
