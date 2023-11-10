@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 import pt.iscte.poo.gui.ImageMatrixGUI;
 import pt.iscte.poo.gui.ImageTile;
@@ -98,12 +97,15 @@ public class GameEngine implements Observer {
 			int y = 0;
 			while (s.hasNext()) {
 				String str = s.nextLine();
+				System.out.println(str);
 				// y e' o primeiro digito e x o segundo
 				for (int x = 0; x < GRID_WIDTH; x++) {
 					GameElement newElement;
 					boolean hasBG = false;
 					Point2D point = new Point2D(x, y);
+					System.out.println(point.getX() + " " + point.getY());
 					char c = str.charAt(x);
+					System.out.println(c);
 					switch (c) {
 					case '\r':
 					case '\n':
@@ -157,26 +159,11 @@ public class GameEngine implements Observer {
 				}
 				y++;
 			}
+			System.out.println("Fim");
 			s.close();
 		} catch (FileNotFoundException error) {
+			System.out.println("Erro");
 		}
-	}
-
-	// Criacao da planta do armazem - so' chao neste exemplo
-	private void createWarehouse() {
-
-		for (int y = 0; y < GRID_HEIGHT; y++)
-			for (int x = 0; x < GRID_HEIGHT; x++)
-				tileList.add(new Chao(new Point2D(x, y)));
-	}
-
-	// Criacao de mais objetos - neste exemplo e' uma empilhadora e dois caixotes
-	private void createMoreStuff() {
-		bobcat = new Empilhadora(new Point2D(5, 5));
-		tileList.add(bobcat);
-
-		tileList.add(new Caixote(new Point2D(3, 3)));
-		tileList.add(new Caixote(new Point2D(3, 2)));
 	}
 
 	// Envio das mensagens para a GUI - note que isto so' precisa de ser feito no
