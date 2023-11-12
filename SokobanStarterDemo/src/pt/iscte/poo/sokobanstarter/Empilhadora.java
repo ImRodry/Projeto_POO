@@ -6,18 +6,28 @@ import pt.iscte.poo.utils.Point2D;
 public class Empilhadora extends GameElement {
 
 	private Point2D position;
-	private String imageName;
-	
-	public Empilhadora(Point2D initialPosition){
 	private int energy = 100;
+	private Direction lastDirection = Direction.DOWN;
+
+	public Empilhadora(Point2D initialPosition) {
 		super(initialPosition);
 		position = initialPosition;
-		imageName = "Empilhadora_D";
 	}
-	
+
 	@Override
 	public String getName() {
-		return imageName;
+		String imagePrefix = "Empilhadora_";
+		switch (lastDirection) {
+			case UP:
+				return imagePrefix + "U";
+			default:
+			case DOWN:
+				return imagePrefix + "D";
+			case LEFT:
+				return imagePrefix + "L";
+			case RIGHT:
+				return imagePrefix + "R";
+		}
 	}
 
 	@Override
@@ -41,5 +51,8 @@ public class Empilhadora extends GameElement {
 			position = newPosition;
 			energy--;
 		}
+		// We intentionally save the last direction even if there was no movement
+		// to represent the attempt of a movement
+		lastDirection = dir;
 	}
 }
