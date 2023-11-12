@@ -44,6 +44,10 @@ public class Empilhadora extends GameElement {
 		return energy;
 	}
 
+	public void pickupBattery() {
+		energy += 50;
+	}
+
 	public void move(Direction dir) {
 		// Move segundo a direcao gerada, mas so' se estiver dentro dos limites
 		Point2D newPosition = position.plus(dir.asVector());
