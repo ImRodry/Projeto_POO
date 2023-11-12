@@ -9,6 +9,7 @@ public class Empilhadora extends GameElement {
 	private String imageName;
 	
 	public Empilhadora(Point2D initialPosition){
+	private int energy = 100;
 		super(initialPosition);
 		position = initialPosition;
 		imageName = "Empilhadora_D";
@@ -29,11 +30,16 @@ public class Empilhadora extends GameElement {
 		return 2;
 	}
 
-	public void move(Direction dir) {		
+	public int getEnergy() {
+		return energy;
+	}
+
+	public void move(Direction dir) {
 		// Move segundo a direcao gerada, mas so' se estiver dentro dos limites
 		Point2D newPosition = position.plus(dir.asVector());
 		if (GameEngine.getInstance().isWithinBounds(newPosition)) {
 			position = newPosition;
+			energy--;
 		}
 	}
 }
