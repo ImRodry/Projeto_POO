@@ -10,7 +10,7 @@ public class Martelo extends GameElement {
 
 	@Override
 	public int getLayer() {
-		return 0;
+		return 1;
 	}
 
 }
