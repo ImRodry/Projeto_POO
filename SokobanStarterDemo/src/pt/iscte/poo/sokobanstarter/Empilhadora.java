@@ -32,8 +32,7 @@ public class Empilhadora extends GameElement {
 	public void move(Direction dir) {		
 		// Move segundo a direcao gerada, mas so' se estiver dentro dos limites
 		Point2D newPosition = position.plus(dir.asVector());
-		if (newPosition.getX()>=0 && newPosition.getX()<GameEngine.GRID_WIDTH && 
-			newPosition.getY()>=0 && newPosition.getY()<GameEngine.GRID_HEIGHT ){
+		if (GameEngine.getInstance().isWithinBounds(newPosition)) {
 			position = newPosition;
 		}
 	}

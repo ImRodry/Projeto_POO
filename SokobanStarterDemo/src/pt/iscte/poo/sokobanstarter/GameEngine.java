@@ -85,12 +85,15 @@ public class GameEngine implements Observer {
 
 		try {
 			bobcat.move(Direction.directionFor(key));
-
 		} catch (IllegalArgumentException error) {
 
 		}
 		gui.update(); // redesenha a lista de ImageTiles na GUI,
 		// tendo em conta as novas posicoes dos objetos
+	}
+
+	public boolean isWithinBounds(Point2D point) {
+		return gui.isWithinBounds(point);
 	}
 
 	private void readLevelData(int level) {
