@@ -98,64 +98,18 @@ public class GameEngine implements Observer {
 			while (s.hasNext()) {
 				String str = s.nextLine();
 				System.out.println(str);
-				// y e' o primeiro digito e x o segundo
 				for (int x = 0; x < GRID_WIDTH; x++) {
-					GameElement newElement;
-					boolean hasBG = false;
-					Point2D point = new Point2D(x, y);
-					System.out.println(point.getX() + " " + point.getY());
 					char c = str.charAt(x);
 					System.out.println(c);
-					switch (c) {
-					case '\r':
-					case '\n':
-						continue;
-					case 'E':
-						bobcat = new Empilhadora(point);
-						newElement = bobcat;
-						hasBG = true;
-						break;
-					case 'C':
-						newElement = new Caixote(point);
-						break;
-					case 'X':
-						newElement = new Alvo(point);
-						break;
-					case 'B':
-						newElement = new Bateria(point);
-						hasBG = true;
-						break;
-					case '#':
-						newElement = new Parede(point);
-						break;
-					case ' ':
-						newElement = new Chao(point);
-						break;
-					case '=':
-						newElement = new Vazio(point);
-						break;
-					case 'O':
-						newElement = new Buraco(point);
-						break;
-					case 'P':
-						newElement = new Parede(point);
-						break;
-					case 'M':
-						newElement = new Martelo(point);
-						hasBG = true;
-						break;
-					case '%':
-						newElement = new ParedeRachada(point);
-						break;
-					case 'T':
-						newElement = new Teleporte(point);
-						break;
-					default:
-						throw new IllegalArgumentException("Unknown symbol");
-					}
-					if (hasBG)
-						tileList.add(new Chao(point));
+					Point2D point = new Point2D(x, y);
+					System.out.println(point);
+					GameElement newElement = GameElement.create(c, point);
 					tileList.add(newElement);
+					// If it is layer 2 it will need a background
+					if (newElement.getLayer() == 2)
+						tileList.add(new Chao(point));
+					if (newElement instanceof Empilhadora)
+						bobcat = (Empilhadora) newElement;
 				}
 				y++;
 			}
