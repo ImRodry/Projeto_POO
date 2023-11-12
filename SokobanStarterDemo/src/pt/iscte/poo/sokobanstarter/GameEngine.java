@@ -63,12 +63,15 @@ public class GameEngine implements Observer {
 		gui.registerObserver(this); // 3. registar o objeto ativo GameEngine como observador da GUI
 		gui.go(); // 4. lancar a GUI
 
+		String nome = gui.askUser("Insira o seu nome");
 		// Criar o cenario de jogo
 		readLevelData(0);
 		sendImagesToGUI();
 
 		// Escrever uma mensagem na StatusBar
-		gui.setStatusMessage("Sokoban");
+		gui.setStatusMessage(
+				"Level: " + 0 + " - Player: " + nome + " - Moves: " + 0 + "- Energy: " + bobcat.getEnergy());
+		gui.update();
 	}
 
 	// O metodo update() e' invocado automaticamente sempre que o utilizador carrega
