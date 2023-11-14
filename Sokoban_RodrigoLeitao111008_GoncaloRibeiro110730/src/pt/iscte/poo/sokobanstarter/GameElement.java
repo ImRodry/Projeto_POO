@@ -23,6 +23,7 @@ abstract class GameElement implements ImageTile {
 	}
 
 	public void setPosition(Point2D position) {
+		GameEngine.getInstance().updatePosition(this, position);
 		this.position = position;
 	}
 

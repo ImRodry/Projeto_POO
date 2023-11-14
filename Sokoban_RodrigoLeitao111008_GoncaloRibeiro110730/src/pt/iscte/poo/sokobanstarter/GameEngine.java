@@ -3,7 +3,7 @@ package pt.iscte.poo.sokobanstarter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import pt.iscte.poo.gui.ImageMatrixGUI;
@@ -35,12 +35,15 @@ public class GameEngine implements Observer {
 
 	private static GameEngine INSTANCE; // Referencia para o unico objeto GameEngine (singleton)
 	private ImageMatrixGUI gui; // Referencia para ImageMatrixGUI (janela de interface com o utilizador)
-	private List<GameElement> tileList; // Lista de elementos
+	private HashMap<Point2D, ArrayList<GameElement>> elementMap; // Lista de elementos
 	private Empilhadora bobcat; // Referencia para a empilhadora
 
 	// Construtor - neste exemplo apenas inicializa uma lista de ImageTiles
 	private GameEngine() {
-		tileList = new ArrayList<>();
+		elementMap = new HashMap<>();
+		for (int x = 0; x < GRID_WIDTH; x++)
+			for (int y = 0; y < GRID_HEIGHT; y++)
+				elementMap.put(new Point2D(x, y), new ArrayList<>());
 	}
 
 	// Implementacao do singleton para o GameEngine
@@ -126,6 +129,16 @@ public class GameEngine implements Observer {
 	
 	private void add(GameElement e) {
 		gui.addImage(e);
-		tileList.add(e);
+		elementMap.get(e.getPosition()).add(e);
+	}
+	
+	public void updatePosition(GameElement e, Point2D newPosition) {
+		elementMap.get(e.getPosition()).remove(e);
+		elementMap.get(newPosition).add(e);
+	}
+	
+	public ArrayList<GameElement> getElementsIn(Point2D position) {
+		return elementMap.get(position);
+	}
 	}
 }
