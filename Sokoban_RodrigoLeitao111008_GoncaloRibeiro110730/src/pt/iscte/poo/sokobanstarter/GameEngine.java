@@ -36,7 +36,7 @@ public class GameEngine implements Observer {
 
 	private static GameEngine INSTANCE; // Referencia para o unico objeto GameEngine (singleton)
 	private ImageMatrixGUI gui; // Referencia para ImageMatrixGUI (janela de interface com o utilizador)
-	private List<ImageTile> tileList; // Lista de imagens
+	private List<GameElement> tileList; // Lista de elementos
 	private Empilhadora bobcat; // Referencia para a empilhadora
 
 	// Construtor - neste exemplo apenas inicializa uma lista de ImageTiles
@@ -66,7 +66,6 @@ public class GameEngine implements Observer {
 		String nome = gui.askUser("Insira o seu nome");
 		// Criar o cenario de jogo
 		readLevelData(0);
-		sendImagesToGUI();
 
 		// Escrever uma mensagem na StatusBar
 		gui.setStatusMessage(
@@ -110,10 +109,10 @@ public class GameEngine implements Observer {
 					Point2D point = new Point2D(x, y);
 					System.out.println(point);
 					GameElement newElement = GameElement.create(c, point);
-					tileList.add(newElement);
+					add(newElement);
 					// If it is layer 2 it will need a background
 					if (newElement.getLayer() == 2)
-						tileList.add(new Chao(point));
+						add(new Chao(point));
 					if (newElement instanceof Empilhadora)
 						bobcat = (Empilhadora) newElement;
 				}
@@ -125,11 +124,9 @@ public class GameEngine implements Observer {
 			System.out.println("Erro");
 		}
 	}
-
-	// Envio das mensagens para a GUI - note que isto so' precisa de ser feito no
-	// inicio
-	// Nao e' suposto re-enviar os objetos se a unica coisa que muda sao as posicoes
-	private void sendImagesToGUI() {
-		gui.addImages(tileList);
+	
+	private void add(GameElement e) {
+		gui.addImage(e);
+		tileList.add(e);
 	}
 }
