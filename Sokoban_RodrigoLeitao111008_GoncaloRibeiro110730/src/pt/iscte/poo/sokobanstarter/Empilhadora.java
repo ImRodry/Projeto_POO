@@ -5,6 +5,7 @@ import pt.iscte.poo.utils.Point2D;
 
 public class Empilhadora extends Movable {
 	private int energy = 100;
+	private boolean hasHammer = false;
 	private Direction lastDirection = Direction.DOWN;
 
 	public Empilhadora(Point2D initialPosition) {
@@ -31,8 +32,12 @@ public class Empilhadora extends Movable {
 		return energy;
 	}
 
-	public void pickupBattery() {
+	public void consumeBattery() {
 		energy += 50;
+	}
+	
+	public void consumeHammer() {
+		hasHammer = true;
 	}
 
 	public boolean move(Direction dir) {
@@ -43,12 +48,15 @@ public class Empilhadora extends Movable {
 		Point2D newPosition = getPosition().plus(dir.asVector());
 		GameEngine ge = GameEngine.getInstance();
 		Movable m = ge.getMovableIn(newPosition);
-		if ((ge.isWithinBounds(newPosition) && canMoveTo(dir)) || (m != null && m.canMoveTo(dir))) {
+		Consumable c = ge.getConsumableIn(newPosition);
+		if ((ge.isWithinBounds(newPosition) && canMoveTo(dir)) || (m != null && m.canMoveTo(dir)) || c != null) {
 			if (m != null) {
 				setPosition(newPosition);
 				m.move(dir);
 				energy -= 2;
 			} else {
+				if (c != null)
+					c.consume(this);
 				setPosition(newPosition);
 				energy--;
 			}

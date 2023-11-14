@@ -137,6 +137,11 @@ public class GameEngine implements Observer {
 		elementMap.get(e.getPosition()).add(e);
 	}
 	
+	public void remove(GameElement e) {
+		gui.removeImage(e);
+		elementMap.get(e.getPosition()).remove(e);
+	}
+	
 	public void updatePosition(GameElement e, Point2D newPosition) {
 		elementMap.get(e.getPosition()).remove(e);
 		elementMap.get(newPosition).add(e);
@@ -149,6 +154,12 @@ public class GameEngine implements Observer {
 	public Movable getMovableIn(Point2D p) {
 		for (GameElement e : getElementsIn(p))
 			if (e instanceof Movable) return (Movable)e;
+		return null;
+	}
+	
+	public Consumable getConsumableIn(Point2D p) {
+		for (GameElement e : getElementsIn(p))
+			if (e instanceof Consumable) return (Consumable)e;
 		return null;
 	}
 }
