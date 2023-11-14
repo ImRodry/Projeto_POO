@@ -6,10 +6,12 @@ import pt.iscte.poo.utils.Point2D;
 abstract class GameElement implements ImageTile {
 	private Point2D position;
 	private int layer;
+	private boolean transposable;
 
-	public GameElement(Point2D position, int layer) {
+	public GameElement(Point2D position, int layer, boolean transposable) {
 		this.position = position;
 		this.layer = layer;
+		this.transposable = transposable;
 	}
 
 	@Override
@@ -32,6 +34,10 @@ abstract class GameElement implements ImageTile {
 		return layer;
 	}
 	
+	public boolean isTransposable() {
+		return transposable;
+	}
+
 	public static GameElement create(char c, Point2D point) {
 		switch (c) {
 		case 'E':
