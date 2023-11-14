@@ -37,6 +37,8 @@ public class GameEngine implements Observer {
 	private ImageMatrixGUI gui; // Referencia para ImageMatrixGUI (janela de interface com o utilizador)
 	private HashMap<Point2D, ArrayList<GameElement>> elementMap; // Lista de elementos
 	private Empilhadora bobcat; // Referencia para a empilhadora
+	private String username;
+	private int moves = 0;
 
 	// Construtor - neste exemplo apenas inicializa uma lista de ImageTiles
 	private GameEngine() {
@@ -65,13 +67,13 @@ public class GameEngine implements Observer {
 		gui.registerObserver(this); // 3. registar o objeto ativo GameEngine como observador da GUI
 		gui.go(); // 4. lancar a GUI
 
-		String nome = gui.askUser("Insira o seu nome");
+		username = gui.askUser("Insira o seu nome");
 		// Criar o cenario de jogo
 		readLevelData(0);
 
 		// Escrever uma mensagem na StatusBar
 		gui.setStatusMessage(
-				"Level: " + 0 + " - Player: " + nome + " - Moves: " + 0 + " - Energy: " + bobcat.getEnergy());
+				"Level: " + 0 + " - Player: " + username + " - Moves: " + moves + " - Energy: " + bobcat.getEnergy());
 		gui.update();
 	}
 
@@ -85,9 +87,12 @@ public class GameEngine implements Observer {
 		int key = gui.keyPressed(); // obtem o codigo da tecla pressionada
 
 		try {
-			bobcat.move(Direction.directionFor(key));
+			if (bobcat.move(Direction.directionFor(key)))
+				moves++;
+			gui.setStatusMessage(
+					"Level: " + 0 + " - Player: " + username + " - Moves: " + moves + " - Energy: " + bobcat.getEnergy());
 		} catch (IllegalArgumentException error) {
-
+			System.err.println("Tecla desconhecida");
 		}
 		gui.update(); // redesenha a lista de ImageTiles na GUI,
 		// tendo em conta as novas posicoes dos objetos
@@ -113,7 +118,7 @@ public class GameEngine implements Observer {
 					GameElement newElement = GameElement.create(c, point);
 					add(newElement);
 					// If it is layer 2 it will need a background
-					if (newElement.getLayer() == 2)
+					if (newElement.getLayer() > 0)
 						add(new Chao(point));
 					if (newElement instanceof Empilhadora)
 						bobcat = (Empilhadora) newElement;
