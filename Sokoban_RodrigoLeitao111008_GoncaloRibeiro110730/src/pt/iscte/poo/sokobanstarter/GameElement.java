@@ -57,7 +57,7 @@ abstract class GameElement implements ImageTile {
 		case 'O':
 			return new Buraco(point);
 		case 'P':
-			return new Parede(point);
+			return new Palete(point);
 		case 'M':
 			return new Martelo(point);
 		case '%':
