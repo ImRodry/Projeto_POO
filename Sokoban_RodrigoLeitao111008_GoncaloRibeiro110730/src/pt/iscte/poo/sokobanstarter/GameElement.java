@@ -4,10 +4,10 @@ import pt.iscte.poo.gui.ImageTile;
 import pt.iscte.poo.utils.Point2D;
 
 abstract class GameElement implements ImageTile {
-	private Point2D point2D;
+	private Point2D position;
 
-	public GameElement(Point2D point2D) {
-		this.point2D = point2D;
+	public GameElement(Point2D position) {
+		this.position = position;
 	}
 
 	@Override
@@ -17,7 +17,11 @@ abstract class GameElement implements ImageTile {
 
 	@Override
 	public Point2D getPosition() {
-		return point2D;
+		return position;
+	}
+
+	public void setPosition(Point2D position) {
+		this.position = position;
 	}
 
 	@Override

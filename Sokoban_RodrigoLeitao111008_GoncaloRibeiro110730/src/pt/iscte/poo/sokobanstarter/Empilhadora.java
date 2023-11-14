@@ -4,14 +4,11 @@ import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 
 public class Empilhadora extends GameElement {
-
-	private Point2D position;
 	private int energy = 100;
 	private Direction lastDirection = Direction.DOWN;
 
 	public Empilhadora(Point2D initialPosition) {
 		super(initialPosition);
-		position = initialPosition;
 	}
 
 	@Override
@@ -31,11 +28,6 @@ public class Empilhadora extends GameElement {
 	}
 
 	@Override
-	public Point2D getPosition() {
-		return position;
-	}
-
-	@Override
 	public int getLayer() {
 		return 2;
 	}
@@ -50,9 +42,9 @@ public class Empilhadora extends GameElement {
 
 	public void move(Direction dir) {
 		// Move segundo a direcao gerada, mas so' se estiver dentro dos limites
-		Point2D newPosition = position.plus(dir.asVector());
+		Point2D newPosition = getPosition().plus(dir.asVector());
 		if (GameEngine.getInstance().isWithinBounds(newPosition)) {
-			position = newPosition;
+			setPosition(newPosition);
 			energy--;
 		}
 		// We intentionally save the last direction even if there was no movement
