@@ -70,7 +70,7 @@ public class GameEngine implements Observer {
 
 		// Escrever uma mensagem na StatusBar
 		gui.setStatusMessage(
-				"Level: " + 0 + " - Player: " + nome + " - Moves: " + 0 + "- Energy: " + bobcat.getEnergy());
+				"Level: " + 0 + " - Player: " + nome + " - Moves: " + 0 + " - Energy: " + bobcat.getEnergy());
 		gui.update();
 	}
 
