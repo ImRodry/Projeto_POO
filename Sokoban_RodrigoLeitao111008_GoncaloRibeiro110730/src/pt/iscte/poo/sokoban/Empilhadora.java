@@ -1,4 +1,4 @@
-package pt.iscte.poo.sokobanstarter;
+package pt.iscte.poo.sokoban;
 
 import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;

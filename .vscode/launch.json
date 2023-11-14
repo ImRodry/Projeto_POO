@@ -14,7 +14,7 @@
 			"type": "java",
 			"name": "Main",
 			"request": "launch",
-			"mainClass": "pt.iscte.poo.sokobanstarter.Main",
+			"mainClass": "pt.iscte.poo.sokoban.Main",
 			"projectName": "Sokoban_RodrigoLeitao111008_GoncaloRibeiro110730",
 			"cwd": "${workspaceFolder}/Sokoban_RodrigoLeitao111008_GoncaloRibeiro110730"
 		}

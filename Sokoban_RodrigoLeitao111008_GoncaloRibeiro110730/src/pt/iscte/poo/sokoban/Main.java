@@ -1,4 +1,4 @@
-package pt.iscte.poo.sokobanstarter;
+package pt.iscte.poo.sokoban;
 
 public class Main {
 

@@ -1,4 +1,4 @@
-package pt.iscte.poo.sokobanstarter;
+package pt.iscte.poo.sokoban;
 
 import java.io.File;
 import java.io.FileNotFoundException;
