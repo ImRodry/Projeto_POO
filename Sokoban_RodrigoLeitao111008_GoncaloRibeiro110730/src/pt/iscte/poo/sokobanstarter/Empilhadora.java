@@ -8,7 +8,7 @@ public class Empilhadora extends GameElement {
 	private Direction lastDirection = Direction.DOWN;
 
 	public Empilhadora(Point2D initialPosition) {
-		super(initialPosition);
+		super(initialPosition, 2);
 	}
 
 	@Override
@@ -25,11 +25,6 @@ public class Empilhadora extends GameElement {
 			case RIGHT:
 				return imagePrefix + "R";
 		}
-	}
-
-	@Override
-	public int getLayer() {
-		return 2;
 	}
 
 	public int getEnergy() {

@@ -5,12 +5,6 @@ import pt.iscte.poo.utils.Point2D;
 public class Teleporte extends GameElement {
 	
 	public Teleporte(Point2D point2D){
-		super(point2D);
+		super(point2D, 1);
 	}
-
-	@Override
-	public int getLayer() {
-		return 1;
-	}
-
 }

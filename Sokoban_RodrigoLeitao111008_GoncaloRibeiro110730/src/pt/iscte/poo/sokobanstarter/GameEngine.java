@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import pt.iscte.poo.gui.ImageMatrixGUI;
-import pt.iscte.poo.gui.ImageTile;
 import pt.iscte.poo.observer.Observed;
 import pt.iscte.poo.observer.Observer;
 import pt.iscte.poo.utils.Direction;

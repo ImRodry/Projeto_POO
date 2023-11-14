@@ -5,9 +5,11 @@ import pt.iscte.poo.utils.Point2D;
 
 abstract class GameElement implements ImageTile {
 	private Point2D position;
+	private int layer;
 
-	public GameElement(Point2D position) {
+	public GameElement(Point2D position, int layer) {
 		this.position = position;
+		this.layer = layer;
 	}
 
 	@Override
@@ -25,7 +27,9 @@ abstract class GameElement implements ImageTile {
 	}
 
 	@Override
-	public abstract int getLayer();
+	public int getLayer() {
+		return layer;
+	}
 	
 	public static GameElement create(char c, Point2D point) {
 		switch (c) {
