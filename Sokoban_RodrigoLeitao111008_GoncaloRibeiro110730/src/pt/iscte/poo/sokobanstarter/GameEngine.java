@@ -140,5 +140,10 @@ public class GameEngine implements Observer {
 	public ArrayList<GameElement> getElementsIn(Point2D position) {
 		return elementMap.get(position);
 	}
+	
+	public Movable getMovableIn(Point2D p) {
+		for (GameElement e : getElementsIn(p))
+			if (e instanceof Movable) return (Movable)e;
+		return null;
 	}
 }
