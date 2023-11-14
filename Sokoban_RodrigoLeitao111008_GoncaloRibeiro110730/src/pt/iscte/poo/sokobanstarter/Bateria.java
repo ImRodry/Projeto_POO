@@ -9,8 +9,8 @@ public class Bateria extends Consumable {
 	}
 	
 	@Override
-	public void consume(Empilhadora e) {
-		super.consume(e);
-		e.consumeBattery();	
+	public boolean consume(Empilhadora e) {
+		e.consumeBattery();
+		return super.consume(e);
 	}
 }

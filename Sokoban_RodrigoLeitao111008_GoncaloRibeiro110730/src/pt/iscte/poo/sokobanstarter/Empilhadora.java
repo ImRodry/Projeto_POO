@@ -5,7 +5,7 @@ import pt.iscte.poo.utils.Point2D;
 
 public class Empilhadora extends Movable {
 	private int energy = 100;
-	private boolean hasHammer = false;
+	private boolean hammer = false;
 	private Direction lastDirection = Direction.DOWN;
 
 	public Empilhadora(Point2D initialPosition) {
@@ -35,9 +35,13 @@ public class Empilhadora extends Movable {
 	public void consumeBattery() {
 		energy += 50;
 	}
-	
+
 	public void consumeHammer() {
-		hasHammer = true;
+		hammer = true;
+	}
+
+	public boolean getHammer() {
+		return hammer;
 	}
 
 	public boolean move(Direction dir) {
@@ -55,8 +59,8 @@ public class Empilhadora extends Movable {
 				m.move(dir);
 				energy -= 2;
 			} else {
-				if (c != null)
-					c.consume(this);
+				if (c != null && !c.consume(this))
+					return didMove;
 				setPosition(newPosition);
 				energy--;
 			}

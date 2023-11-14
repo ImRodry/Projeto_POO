@@ -9,8 +9,8 @@ public class Martelo extends Consumable {
 	}
 	
 	@Override
-	public void consume(Empilhadora e) {
-		super.consume(e);
-		e.consumeHammer();	
+	public boolean consume(Empilhadora e) {
+		e.consumeHammer();
+		return super.consume(e);
 	}
 }
