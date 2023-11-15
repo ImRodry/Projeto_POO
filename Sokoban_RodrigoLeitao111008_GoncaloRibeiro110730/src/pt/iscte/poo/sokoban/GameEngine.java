@@ -110,9 +110,11 @@ public class GameEngine implements Observer {
 
 			if (oldAlvo != null) {
 				oldAlvo.setFilled(false);
+				((Caixote) e).setOnTarget(false);
 			}
 			if (newAlvo != null) {
 				newAlvo.setFilled(true);
+				((Caixote) e).setOnTarget(true);
 			}
 
 		}
