@@ -30,6 +30,7 @@ public class Level {
 		File f = new File("levels/level" + level + ".txt");
 		try {
 			Scanner s = new Scanner(f);
+			gui.clearImages();
 			int y = 0;
 			while (s.hasNext()) {
 				String str = s.nextLine();
@@ -53,6 +54,7 @@ public class Level {
 			}
 			System.out.println("Fim");
 			s.close();
+			gui.update();
 		} catch (FileNotFoundException error) {
 			System.out.println("Erro");
 			throw new IllegalArgumentException("Couldn't find the file for level " + level);

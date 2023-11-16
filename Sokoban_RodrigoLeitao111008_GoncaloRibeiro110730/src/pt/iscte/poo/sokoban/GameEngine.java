@@ -1,6 +1,7 @@
 package pt.iscte.poo.sokoban;
 
 import java.util.ArrayList;
+import java.awt.event.KeyEvent;
 
 import pt.iscte.poo.gui.ImageMatrixGUI;
 import pt.iscte.poo.observer.Observed;
@@ -76,10 +77,14 @@ public class GameEngine implements Observer {
 
 		int key = gui.keyPressed(); // obtem o codigo da tecla pressionada
 
+		if (key == KeyEvent.VK_SPACE) {
+			level = new Level(level.getLevel());
+			return;
+		}
 		try {
 			if (level.getBobcat().move(Direction.directionFor(key)))
 				moves++;
-			gui.setStatusMessage("Level: " + 0 + " - Player: " + username + " - Moves: " + moves + " - Energy: "
+			gui.setStatusMessage("Level: " + level.getLevel() + " - Player: " + username + " - Moves: " + moves + " - Energy: "
 					+ level.getBobcat().getEnergy());
 		} catch (IllegalArgumentException error) {
 			System.err.println("Tecla desconhecida");
@@ -143,7 +148,6 @@ public class GameEngine implements Observer {
 			return false;
 		int oldLevel = level.getLevel();
 		gui.setMessage("Nível " + oldLevel + " concluído!");
-		gui.clearImages();
 		try {
 			level = new Level(oldLevel + 1);
 		} catch (IllegalArgumentException e) {
