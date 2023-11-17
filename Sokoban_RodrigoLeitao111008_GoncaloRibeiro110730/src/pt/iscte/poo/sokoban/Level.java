@@ -18,11 +18,9 @@ public class Level {
 
 	public Level(int level) {
 		this.level = level;
-		synchronized (elementMap) {
-			for (int x = 0; x < GameEngine.GRID_WIDTH; x++)
-				for (int y = 0; y < GameEngine.GRID_HEIGHT; y++)
-					elementMap.put(new Point2D(x, y), new ArrayList<>());
-		}
+		for (int x = 0; x < GameEngine.GRID_WIDTH; x++)
+			for (int y = 0; y < GameEngine.GRID_HEIGHT; y++)
+				elementMap.put(new Point2D(x, y), new ArrayList<>());
 		readLevelData(level);
 	}
 

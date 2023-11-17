@@ -59,7 +59,7 @@ public class GameEngine implements Observer {
 
 		username = gui.askUser("Insira o seu nome");
 		// Criar o cenario de jogo
-		level = new Level(1);
+		level = new Level(0);
 
 		// Escrever uma mensagem na StatusBar
 		gui.setStatusMessage(
@@ -103,8 +103,8 @@ public class GameEngine implements Observer {
 	}
 
 	public void updatePosition(GameElement e, Point2D newPosition) {
-		ArrayList<GameElement> oldList = level.getElementMap().get(e.getPosition());
-		ArrayList<GameElement> newList = level.getElementMap().get(newPosition);
+		ArrayList<GameElement> oldList = getElementsIn(e.getPosition());
+		ArrayList<GameElement> newList = getElementsIn(newPosition);
 		oldList.remove(e);
 		newList.add(e);
 		if (e instanceof Caixote) {
