@@ -84,13 +84,15 @@ public class GameEngine implements Observer {
 		try {
 			if (level.getBobcat().move(Direction.directionFor(key)))
 				moves++;
-			gui.setStatusMessage("Level: " + level.getLevel() + " - Player: " + username + " - Moves: " + moves + " - Energy: "
-					+ level.getBobcat().getEnergy());
+			gui.setStatusMessage(
+					"Level: " + level.getLevel() + " - Player: " + username + " - Moves: " + moves + " - Energy: "
+							+ level.getBobcat().getEnergy());
+			if (level.getBobcat().getEnergy() <= 0)
+				lose();
+			gui.update();
 		} catch (IllegalArgumentException error) {
 			System.err.println("Tecla desconhecida");
 		}
-		gui.update(); // redesenha a lista de ImageTiles na GUI,
-		// tendo em conta as novas posicoes dos objetos
 	}
 
 	public boolean isWithinBounds(Point2D point) {
@@ -157,5 +159,10 @@ public class GameEngine implements Observer {
 			System.exit(0);
 		}
 		return true;
+	}
+
+	public void lose() {
+		gui.setMessage("Burro!");
+		level = new Level(level.getLevel());
 	}
 }

@@ -57,7 +57,7 @@ public class Empilhadora extends Movable {
 			if (m != null) {
 				setPosition(newPosition);
 				m.move(dir);
-				energy -= 2;
+				energy = Math.max(0, energy - 2);
 			} else {
 				if (c != null && !c.consume(this))
 					return didMove;
