@@ -33,9 +33,17 @@ abstract class GameElement implements ImageTile {
 	public int getLayer() {
 		return layer;
 	}
+
+	public void setLayer(int layer) {
+		this.layer = layer;
+	}
 	
 	public boolean isTransposable() {
 		return transposable;
+	}
+
+	public void setTransposable(boolean transposable) {
+		this.transposable = transposable;
 	}
 
 	public static GameElement create(char c, Point2D point) {

@@ -88,7 +88,7 @@ public class GameEngine implements Observer {
 					"Level: " + level.getLevel() + " - Player: " + username + " - Moves: " + moves + " - Energy: "
 							+ level.getBobcat().getEnergy());
 			if (level.getBobcat().getEnergy() <= 0)
-				lose();
+				lose("Ficou sem energia!");
 			gui.update();
 		} catch (IllegalArgumentException error) {
 			System.err.println("Tecla desconhecida");
@@ -161,8 +161,8 @@ public class GameEngine implements Observer {
 		return true;
 	}
 
-	public void lose() {
-		gui.setMessage("Burro!");
+	public void lose(String s) {
+		gui.setMessage(s);
 		level = new Level(level.getLevel());
 	}
 }
