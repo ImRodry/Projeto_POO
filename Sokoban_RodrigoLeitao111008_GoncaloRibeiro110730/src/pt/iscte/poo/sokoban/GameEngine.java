@@ -123,7 +123,9 @@ public class GameEngine implements Observer {
 				newAlvo.setFilled(true);
 				((Caixote) e).setOnTarget(true);
 			}
-
+			// TODO fix game ending before last move is rendered
+			// this causes the last move to be executed on the new level, creating a duped
+			// bobcat
 		}
 	}
 
@@ -131,6 +133,7 @@ public class GameEngine implements Observer {
 		return level.getElementMap().get(position);
 	}
 
+	// TODO make 1 function that returns this type of element
 	public Movable getMovableIn(Point2D p) {
 		for (GameElement e : getElementsIn(p))
 			if (e instanceof Movable)
@@ -163,6 +166,9 @@ public class GameEngine implements Observer {
 
 	public void lose(String s) {
 		gui.setMessage(s);
+		// TODO fix message rendering blank when losing
+		// This causes the game to go unplayable and requires a restart
+		// doesn't happen if the next line is commented out
 		level = new Level(level.getLevel());
 	}
 }

@@ -57,6 +57,7 @@ public class Empilhadora extends Movable {
 		if ((ge.isWithinBounds(newPosition) && canMoveTo(dir)) || (m != null && m.canMoveTo(dir)) || c != null) {
 			if (m != null && !m.isTransposable()) {
 				m.interactWithHole(newPosition.plus(dir.asVector()));
+				// TODO move element after bobcat? Fixes ghost move issue but dupes code
 				m.move(dir);
 				energy = Math.max(0, energy - 2);
 			} else {
