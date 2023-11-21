@@ -15,6 +15,7 @@ public class Level {
 	private ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
 	private ArrayList<Alvo> targets = new ArrayList<>();
 	private Empilhadora bobcat;
+	private int boxCount;
 
 	public Level(int level) {
 		this.level = level;
@@ -47,6 +48,8 @@ public class Level {
 						bobcat = (Empilhadora) newElement;
 					else if (newElement instanceof Alvo)
 						targets.add((Alvo) newElement);
+					else if (newElement instanceof Caixote)
+						boxCount++;
 				}
 				y++;
 			}
@@ -74,6 +77,18 @@ public class Level {
 
 	public HashMap<Point2D, ArrayList<GameElement>> getElementMap() {
 		return elementMap;
+	}
+
+	public ArrayList<Alvo> getTargets() {
+		return targets;
+	}
+
+	public int getBoxCount() {
+		return boxCount;
+	}
+
+	public void destroyBox() {
+		boxCount--;
 	}
 
 	public boolean checkEnd() {

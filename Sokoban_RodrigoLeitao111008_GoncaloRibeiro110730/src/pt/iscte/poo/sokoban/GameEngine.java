@@ -87,6 +87,8 @@ public class GameEngine implements Observer {
 			gui.update();
 			if (bobcat.getEnergy() <= 0)
 				restart("Ficou sem energia!");
+			else if (level.getBoxCount() < level.getTargets().size())
+				restart("Ficou sem caixotes suficientes!");
 			checkEnd();
 		} catch (IllegalArgumentException error) {
 			System.err.println("Tecla desconhecida");
