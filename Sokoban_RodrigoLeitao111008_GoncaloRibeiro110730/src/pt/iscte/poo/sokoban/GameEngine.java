@@ -62,7 +62,7 @@ public class GameEngine implements Observer {
 		}
 
 		// Criar o cenario de jogo
-		level = new Level(0);
+		level = new Level(6);
 
 		// Escrever uma mensagem na StatusBar
 		gui.setStatusMessage(
@@ -125,11 +125,11 @@ public class GameEngine implements Observer {
 					.orElse(null);
 
 			if (oldAlvo != null) {
-				oldAlvo.setFilled(false);
+				oldAlvo.setCovered(false);
 				((Caixote) e).setOnTarget(false);
 			}
 			if (newAlvo != null) {
-				newAlvo.setFilled(true);
+				newAlvo.setCovered(true);
 				((Caixote) e).setOnTarget(true);
 			}
 			// TODO fix game ending before last move is rendered
@@ -138,6 +138,10 @@ public class GameEngine implements Observer {
 
 	public ArrayList<GameElement> getElementsIn(Point2D position) {
 		return level.getElementMap().get(position);
+	}
+
+	public ArrayList<Teleporte> getTeleportes() {
+		return level.getTeleportes();
 	}
 
 	/**

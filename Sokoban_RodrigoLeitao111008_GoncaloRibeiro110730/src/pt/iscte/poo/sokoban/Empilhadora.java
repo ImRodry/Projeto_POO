@@ -65,6 +65,10 @@ public class Empilhadora extends Movable {
 				energy--;
 			} else if (special instanceof Buraco) {
 				interactWithHole((Buraco) special);
+			} else if (special instanceof Teleporte) {
+				Point2D p = ((Teleporte) special).getTeleportPair(GameEngine.getInstance().getTeleportes());
+				if (p != null)
+					moveTo(p);
 			}
 			didMove = true;
 		} else if ((ge.isWithinBounds(newPosition) && canMoveTo(dir))) {
