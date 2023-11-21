@@ -57,7 +57,10 @@ public class GameEngine implements Observer {
 		gui.registerObserver(this); // 3. registar o objeto ativo GameEngine como observador da GUI
 		gui.go(); // 4. lancar a GUI
 
-		username = gui.askUser("Insira o seu nome");
+		while (username == null) {
+			username = gui.askUser("Insira o seu nome");
+		}
+
 		// Criar o cenario de jogo
 		level = new Level(0);
 
