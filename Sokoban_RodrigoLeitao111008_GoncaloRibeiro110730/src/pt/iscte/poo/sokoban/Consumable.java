@@ -8,8 +8,11 @@ public abstract class Consumable extends GameElement {
 		super(position, layer, false);
 	}
 	
-	public boolean consume(Empilhadora e) {
+	public void consume(Empilhadora e) {
 		GameEngine.getInstance().remove(this);
+	}
+
+	public boolean canConsume(Empilhadora e) {
 		return true;
 	}
 }

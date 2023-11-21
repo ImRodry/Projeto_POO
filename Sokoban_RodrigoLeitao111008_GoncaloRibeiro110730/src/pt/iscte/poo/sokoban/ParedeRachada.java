@@ -8,10 +8,14 @@ public class ParedeRachada extends Consumable {
 		super(point2D, 1);
 	}
 
-	public boolean consume(Empilhadora e) {
-		if (e.getHammer())
-			return super.consume(e);
-		else
-			return false;
+	public void consume(Empilhadora e) {
+		if (!canConsume(e))
+			throw new IllegalStateException("Cannot consume without hammer");
+		super.consume(e);
+	}
+
+	@Override
+	public boolean canConsume(Empilhadora e) {
+		return e.getHammer();
 	}
 }
