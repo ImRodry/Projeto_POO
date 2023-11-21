@@ -133,18 +133,20 @@ public class GameEngine implements Observer {
 		return level.getElementMap().get(position);
 	}
 
-	// TODO make 1 function that returns this type of element
-	public Movable getMovableIn(Point2D p) {
-		for (GameElement e : getElementsIn(p))
-			if (e instanceof Movable)
-				return (Movable) e;
-		return null;
-	}
+	/**
+	 * Returns the first special element in the given position (an element with
+	 * special interactions)
+	 * 
+	 * @param p The position to check
+	 * @return An instance of a class that extends GameElement and has extra methods
+	 */
+	public GameElement getSpecialIn(Point2D p) {
+		ArrayList<GameElement> elements = getElementsIn(p);
+		elements.sort((a, b) -> b.getLayer() - a.getLayer());
+		for (GameElement e : elements)
+			if (e.isSpecial())
+				return e;
 
-	public Consumable getConsumableIn(Point2D p) {
-		for (GameElement e : getElementsIn(p))
-			if (e instanceof Consumable)
-				return (Consumable) e;
 		return null;
 	}
 

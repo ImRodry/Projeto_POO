@@ -7,11 +7,20 @@ abstract class GameElement implements ImageTile {
 	private Point2D position;
 	private int layer;
 	private boolean transposable;
+	private final boolean special;
+
+	public GameElement(Point2D position, int layer, boolean transposable, boolean special) {
+		this.position = position;
+		this.layer = layer;
+		this.transposable = transposable;
+		this.special = special;
+	}
 
 	public GameElement(Point2D position, int layer, boolean transposable) {
 		this.position = position;
 		this.layer = layer;
 		this.transposable = transposable;
+		this.special = false;
 	}
 
 	@Override
@@ -44,6 +53,10 @@ abstract class GameElement implements ImageTile {
 
 	public void setTransposable(boolean transposable) {
 		this.transposable = transposable;
+	}
+
+	public boolean isSpecial() {
+		return special;
 	}
 
 	public static GameElement create(char c, Point2D point) {

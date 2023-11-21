@@ -6,7 +6,7 @@ public class Alvo extends GameElement {
 	private boolean filled = false;
 	
 	public Alvo(Point2D point2D){
-		super(point2D, 1, true);
+		super(point2D, 1, true, true);
 	}
 
 	public boolean isFilled() {

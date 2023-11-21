@@ -51,22 +51,26 @@ public class Empilhadora extends Movable {
 		// Move segundo a direcao gerada, mas so' se estiver dentro dos limites
 		Point2D newPosition = getPosition().plus(dir.asVector());
 		GameEngine ge = GameEngine.getInstance();
-		interactWithHole(newPosition);
-		Movable m = ge.getMovableIn(newPosition);
-		Consumable c = ge.getConsumableIn(newPosition);
-		if ((ge.isWithinBounds(newPosition) && canMoveTo(dir)) || (m != null && m.canMoveTo(dir)) || c != null) {
-			if (m != null && !m.isTransposable()) {
-				m.interactWithHole(newPosition.plus(dir.asVector()));
-				// TODO move element after bobcat? Fixes ghost move issue but dupes code
-				m.move(dir);
+		GameElement special = ge.getSpecialIn(newPosition);
+		if (special != null) {
+			if (special instanceof Consumable && !((Consumable) special).canConsume(this)
+					|| special instanceof Movable && !special.isTransposable() && !((Movable) special).canMoveTo(dir))
+				return didMove;
+			setPosition(newPosition);
+			if (special instanceof Movable && !special.isTransposable()) {
+				((Movable) special).move(dir);
 				energy = Math.max(0, energy - 2);
-			} else {
-				if (c != null && !c.consume(this))
-					return didMove;
+			} else if (special instanceof Consumable) {
+				((Consumable) special).consume(this);
 				energy--;
+			} else if (special instanceof Buraco) {
+				interactWithHole((Buraco) special);
 			}
+			didMove = true;
+		} else if ((ge.isWithinBounds(newPosition) && canMoveTo(dir))) {
 			setPosition(newPosition);
 			didMove = true;
+			energy--;
 		}
 		// We intentionally save the last direction even if there was no movement
 		// to represent the attempt of a movement

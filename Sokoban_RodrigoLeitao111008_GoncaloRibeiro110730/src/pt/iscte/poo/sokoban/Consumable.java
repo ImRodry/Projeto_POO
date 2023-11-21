@@ -5,7 +5,7 @@ import pt.iscte.poo.utils.Point2D;
 public abstract class Consumable extends GameElement {
 
 	public Consumable(Point2D position, int layer) {
-		super(position, layer, false);
+		super(position, layer, false, true);
 	}
 	
 	public void consume(Empilhadora e) {
