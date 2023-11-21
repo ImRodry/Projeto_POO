@@ -23,9 +23,7 @@ public class Caixote extends Movable {
 	}
 
 	@Override
-	public void interactWithHole(Point2D newPosition) {
-		if (isHole(newPosition) != null) {
-			GameEngine.getInstance().remove(this);
-		}
+	public void interactWithHole(Buraco hole) {
+		GameEngine.getInstance().remove(this);
 	}
 }

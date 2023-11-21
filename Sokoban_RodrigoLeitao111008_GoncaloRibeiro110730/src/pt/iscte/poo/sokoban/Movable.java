@@ -12,7 +12,11 @@ public abstract class Movable extends GameElement {
 	public boolean move(Direction dir) {
 		Point2D newPosition = getPosition().plus(dir.asVector());
 		if (GameEngine.getInstance().isWithinBounds(newPosition) && canMoveTo(dir)) {
+			GameElement special = GameEngine.getInstance().getSpecialIn(newPosition);
+			// Will move regardless of implementation
 			setPosition(newPosition);
+			if (special instanceof Buraco)
+				interactWithHole((Buraco) special);
 			return true;
 		}
 		return false;
@@ -26,14 +30,5 @@ public abstract class Movable extends GameElement {
 		return true;
 	}
 
-	public Buraco isHole(Point2D newPosition) {
-		ArrayList<GameElement> list = GameEngine.getInstance().getElementsIn(newPosition);
-		for (GameElement e : list) {
-			if (e instanceof Buraco && !((Buraco)e).isProtected())
-				return (Buraco) e;
-		}
-		return null;
-	}
-
-	public abstract void interactWithHole(Point2D newPosition);
+	public abstract void interactWithHole(Buraco hole);
 }

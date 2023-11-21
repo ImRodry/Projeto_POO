@@ -9,11 +9,8 @@ public class Palete extends Movable {
 	}
 
 	@Override
-	public void interactWithHole(Point2D newPosition) {
-		if (isHole(newPosition) != null) {
-			isHole(newPosition).setProtected(true);
-			setLayer(1);
-			setTransposable(true);
-		}
+	public void interactWithHole(Buraco hole) {
+		hole.setCovered(true);
+		setTransposable(true);
 	}
 }

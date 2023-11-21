@@ -75,9 +75,9 @@ public class Empilhadora extends Movable {
 	}
 
 	@Override
-	public void interactWithHole(Point2D newPosition) {
-		if (isHole(newPosition) != null) {
-			GameEngine.getInstance().lose("Caiu num buraco!");
-		}
+	public void interactWithHole(Buraco hole) {
+		GameEngine engine = GameEngine.getInstance();
+		engine.remove(this);
+		engine.restart("Caiu num buraco!");
 	}
 }
