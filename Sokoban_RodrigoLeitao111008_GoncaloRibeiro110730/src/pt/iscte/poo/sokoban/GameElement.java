@@ -17,10 +17,7 @@ abstract class GameElement implements ImageTile {
 	}
 
 	public GameElement(Point2D position, int layer, boolean transposable) {
-		this.position = position;
-		this.layer = layer;
-		this.transposable = transposable;
-		this.special = false;
+		this(position, layer, transposable, false);
 	}
 
 	@Override
