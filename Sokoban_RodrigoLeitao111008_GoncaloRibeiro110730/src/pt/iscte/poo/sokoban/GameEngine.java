@@ -77,22 +77,26 @@ public class GameEngine implements Observer {
 
 		int key = gui.keyPressed(); // obtem o codigo da tecla pressionada
 
-		if (key == KeyEvent.VK_SPACE) {
-			restart();
-			return;
-		}
 		try {
-			if (level.getBobcat().move(Direction.directionFor(key)))
+			Empilhadora bobcat = level.getBobcat();
+			if (key == KeyEvent.VK_SPACE) {
+				restart();
+			} else if (bobcat.move(Direction.directionFor(key)))
 				moves++;
-			gui.setStatusMessage(
-					"Level: " + level.getLevel() + " - Player: " + username + " - Moves: " + moves + " - Energy: "
-							+ level.getBobcat().getEnergy());
-			if (level.getBobcat().getEnergy() <= 0)
-				restart("Ficou sem energia!");
+			updateStatusBar();
 			gui.update();
+			if (bobcat.getEnergy() <= 0)
+				restart("Ficou sem energia!");
+			checkEnd();
 		} catch (IllegalArgumentException error) {
 			System.err.println("Tecla desconhecida");
 		}
+	}
+
+	public void updateStatusBar() {
+		gui.setStatusMessage(
+				"Level: " + level.getLevel() + " - Player: " + username + " - Moves: " + moves + " - Energy: "
+						+ level.getBobcat().getEnergy());
 	}
 
 	public boolean isWithinBounds(Point2D point) {
@@ -155,9 +159,10 @@ public class GameEngine implements Observer {
 		gui.setMessage("Nível " + oldLevel + " concluído!");
 		try {
 			level = new Level(oldLevel + 1);
+			updateStatusBar();
 		} catch (IllegalArgumentException e) {
 			// if creating the level errors it means there are no more levels, thus we won
-			gui.setMessage("Congratulations, you won!");
+			gui.setMessage("Ganhaste!");
 			gui.clearImages();
 			System.exit(0);
 		}

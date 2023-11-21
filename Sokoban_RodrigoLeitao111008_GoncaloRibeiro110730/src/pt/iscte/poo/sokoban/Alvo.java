@@ -15,7 +15,5 @@ public class Alvo extends GameElement {
 
 	public void setFilled(boolean filled) {
 		this.filled = filled;
-		if (filled)
-			GameEngine.getInstance().checkEnd();
 	}
 }
