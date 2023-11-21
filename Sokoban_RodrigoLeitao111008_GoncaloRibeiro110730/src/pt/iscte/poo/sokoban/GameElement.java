@@ -5,7 +5,7 @@ import pt.iscte.poo.utils.Point2D;
 
 abstract class GameElement implements ImageTile {
 	private Point2D position;
-	private int layer;
+	private final int layer;
 	private boolean transposable;
 	private final boolean special;
 
@@ -43,10 +43,6 @@ abstract class GameElement implements ImageTile {
 		return layer;
 	}
 
-	public void setLayer(int layer) {
-		this.layer = layer;
-	}
-	
 	public boolean isTransposable() {
 		return transposable;
 	}
