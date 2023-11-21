@@ -78,7 +78,7 @@ public class GameEngine implements Observer {
 		int key = gui.keyPressed(); // obtem o codigo da tecla pressionada
 
 		if (key == KeyEvent.VK_SPACE) {
-			level = new Level(level.getLevel());
+			restart();
 			return;
 		}
 		try {
@@ -88,7 +88,7 @@ public class GameEngine implements Observer {
 					"Level: " + level.getLevel() + " - Player: " + username + " - Moves: " + moves + " - Energy: "
 							+ level.getBobcat().getEnergy());
 			if (level.getBobcat().getEnergy() <= 0)
-				lose("Ficou sem energia!");
+				restart("Ficou sem energia!");
 			gui.update();
 		} catch (IllegalArgumentException error) {
 			System.err.println("Tecla desconhecida");
@@ -124,8 +124,6 @@ public class GameEngine implements Observer {
 				((Caixote) e).setOnTarget(true);
 			}
 			// TODO fix game ending before last move is rendered
-			// this causes the last move to be executed on the new level, creating a duped
-			// bobcat
 		}
 	}
 
@@ -166,11 +164,15 @@ public class GameEngine implements Observer {
 		return true;
 	}
 
-	public void lose(String s) {
+	public void restart(String s) {
 		gui.setMessage(s);
 		// TODO fix message rendering blank when losing
 		// This causes the game to go unplayable and requires a restart
 		// doesn't happen if the next line is commented out
+		restart();
+	}
+
+	public void restart() {
 		level = new Level(level.getLevel());
 	}
 }
