@@ -4,16 +4,21 @@ import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 
 public class Empilhadora extends Movable {
-	private int energy = 100;
+	private int energy;
 	private boolean hammer = false;
 	private Direction lastDirection = Direction.DOWN;
+	private boolean hasUsedEasterEgg = false;
 
 	public Empilhadora(Point2D initialPosition) {
 		super(initialPosition, 2);
+		// Must be defined here to ensure the easter egg is correctly calculated
+		energy = GameEngine.getInstance().hasEasterEgg() ? 10000 : 100;
 	}
 
 	@Override
 	public String getName() {
+		if (GameEngine.getInstance().hasEasterEgg())
+			return "Ronaldo";
 		String imagePrefix = "Empilhadora_";
 		switch (lastDirection) {
 			case UP:
@@ -82,6 +87,14 @@ public class Empilhadora extends Movable {
 			energy--;
 		}
 		return didMove;
+	}
+
+	public boolean easterEgg() {
+		if (hasUsedEasterEgg)
+			return false;
+		energy += 500;
+		hasUsedEasterEgg = true;
+		return true;
 	}
 
 	@Override

@@ -68,6 +68,8 @@ public class GameEngine implements Observer {
 			username = gui.askUser("Insira o seu nome");
 		}
 
+		if (hasEasterEgg())
+			gui.setMessage("SIUUUU");
 		// Criar o cenario de jogo
 		level = new Level(0);
 
@@ -92,7 +94,12 @@ public class GameEngine implements Observer {
 			if (key == KeyEvent.VK_SPACE) {
 				restart();
 			} else {
-				if (bobcat.move(Direction.directionFor(key))) {
+				if (key == 17) {
+					if (bobcat.easterEgg())
+						gui.setMessage("Uma entidade passou por ti e deixou cair 10 baterias, aproveita!");
+					else
+						gui.setMessage("Ouves o vento a soprar ao fundo mas nada acontece...");
+				} else if (bobcat.move(Direction.directionFor(key))) {
 					level.countMove();
 				}
 				gui.update();
@@ -163,6 +170,10 @@ public class GameEngine implements Observer {
 
 	public Teleporte getTeleportPair(Teleporte tp) {
 		return level.getTeleportes().stream().filter(t -> t != tp).findFirst().get();
+	}
+
+	public boolean hasEasterEgg() {
+		return username.equalsIgnoreCase("ronaldo");
 	}
 
 	/**
