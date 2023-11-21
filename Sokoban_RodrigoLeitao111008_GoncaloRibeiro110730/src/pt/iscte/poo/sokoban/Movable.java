@@ -1,14 +1,12 @@
 package pt.iscte.poo.sokoban;
 
-import java.util.ArrayList;
-
 import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 
 public abstract class Movable extends GameElement {
 
-	public Movable(Point2D position, int layer, boolean transposable) {
-		super(position, layer, transposable);
+	public Movable(Point2D position, int layer) {
+		super(position, layer, false);
 	}
 
 	public boolean move(Direction dir) {

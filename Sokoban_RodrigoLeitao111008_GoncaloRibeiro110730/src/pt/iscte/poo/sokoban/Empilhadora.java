@@ -9,7 +9,7 @@ public class Empilhadora extends Movable {
 	private Direction lastDirection = Direction.DOWN;
 
 	public Empilhadora(Point2D initialPosition) {
-		super(initialPosition, 2, false);
+		super(initialPosition, 2);
 	}
 
 	@Override

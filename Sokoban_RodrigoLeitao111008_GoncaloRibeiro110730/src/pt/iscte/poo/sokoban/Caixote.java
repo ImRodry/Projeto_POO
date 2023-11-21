@@ -6,7 +6,7 @@ public class Caixote extends Movable {
 	private boolean onTarget = false;
 
 	public Caixote(Point2D point2D) {
-		super(point2D, 2, false);
+		super(point2D, 2);
 	}
 
 	public boolean isOnTarget() {
