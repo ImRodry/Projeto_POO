@@ -47,6 +47,9 @@ public class Empilhadora extends Movable {
 		boolean didMove = false;
 		if (energy <= 0)
 			return didMove;
+		// We intentionally save the last direction even if there was no movement
+		// to represent the attempt of a movement
+		lastDirection = dir;
 		// Move segundo a direcao gerada, mas so' se estiver dentro dos limites
 		Point2D newPosition = getPosition().plus(dir.asVector());
 		GameEngine engine = GameEngine.getInstance();
@@ -65,7 +68,6 @@ public class Empilhadora extends Movable {
 			} else if (special instanceof Buraco && !((Buraco) special).isCovered()) {
 				interactWithHole((Buraco) special);
 			} else if (special instanceof Teleporte) {
-				// Whe
 				Teleporte p = engine.getTeleportPair((Teleporte) special);
 				if (!p.isCovered())
 					setPosition(p.getPosition());
@@ -76,9 +78,6 @@ public class Empilhadora extends Movable {
 			didMove = true;
 			energy--;
 		}
-		// We intentionally save the last direction even if there was no movement
-		// to represent the attempt of a movement
-		lastDirection = dir;
 		return didMove;
 	}
 
