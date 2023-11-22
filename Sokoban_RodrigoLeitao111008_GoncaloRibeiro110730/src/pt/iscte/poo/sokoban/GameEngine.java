@@ -118,21 +118,31 @@ public class GameEngine implements Observer {
 		ArrayList<GameElement> newList = getElementsIn(newPosition);
 		oldList.remove(e);
 		newList.add(e);
-		if (e instanceof Caixote) {
-			Alvo oldAlvo = (Alvo) oldList.stream().filter(em -> (em instanceof Alvo)).findFirst()
+		if (e instanceof Movable) {
+			Interactable oldInteractable = (Interactable) oldList.stream()
+					.filter(em -> (em instanceof Interactable && !(em instanceof Buraco)))
+					.findFirst()
 					.orElse(null);
-			Alvo newAlvo = (Alvo) newList.stream().filter(em -> (em instanceof Alvo)).findFirst()
+			Interactable newInteractable = (Interactable) newList.stream()
+					.filter(em -> (em instanceof Interactable && !(em instanceof Buraco)))
+					.findFirst()
 					.orElse(null);
 
-			if (oldAlvo != null) {
-				oldAlvo.setCovered(false);
-				((Caixote) e).setOnTarget(false);
+			if (oldInteractable != null) {
+				if (oldInteractable instanceof Alvo && e instanceof Caixote) {
+					oldInteractable.setCovered(false);
+					((Caixote) e).setOnTarget(false);
+				} else if (!(oldInteractable instanceof Alvo))
+					oldInteractable.setCovered(false);
 			}
-			if (newAlvo != null) {
-				newAlvo.setCovered(true);
-				((Caixote) e).setOnTarget(true);
+			if (newInteractable != null) {
+				if (newInteractable instanceof Alvo && e instanceof Caixote) {
+					newInteractable.setCovered(true);
+					((Caixote) e).setOnTarget(true);
+				} else if (!(newInteractable instanceof Alvo))
+					newInteractable.setCovered(true);
 			}
-			// TODO fix game ending before last move is rendered
+
 		}
 	}
 
