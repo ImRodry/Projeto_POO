@@ -53,6 +53,9 @@ public class Empilhadora extends Movable {
 		// Move segundo a direcao gerada, mas so' se estiver dentro dos limites
 		Point2D newPosition = getPosition().plus(dir.asVector());
 		GameEngine engine = GameEngine.getInstance();
+		// TODO when an object is on a teleport, this only gets the object and avoids
+		// teleporting
+		// check if this is allowed (please)
 		GameElement special = engine.getSpecialIn(newPosition);
 		if (special != null) {
 			if (special instanceof Consumable && !((Consumable) special).canConsume(this)
