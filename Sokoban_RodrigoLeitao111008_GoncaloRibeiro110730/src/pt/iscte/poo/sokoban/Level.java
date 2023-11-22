@@ -10,10 +10,10 @@ import pt.iscte.poo.gui.ImageMatrixGUI;
 import pt.iscte.poo.utils.Point2D;
 
 public class Level {
-	private HashMap<Point2D, ArrayList<GameElement>> elementMap = new HashMap<>();
+	private HashMap<Point2D, ArrayList<GameElement>> elementMap = new HashMap<>(100);
 	private int level = 0;
 	private ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
-	private ArrayList<Alvo> targets = new ArrayList<>();
+	private ArrayList<Alvo> targets = new ArrayList<>(2);
 	private ArrayList<Teleporte> teleportes;
 	private Empilhadora bobcat;
 	private int boxCount;
@@ -22,7 +22,7 @@ public class Level {
 		this.level = level;
 		for (int x = 0; x < GameEngine.GRID_WIDTH; x++)
 			for (int y = 0; y < GameEngine.GRID_HEIGHT; y++)
-				elementMap.put(new Point2D(x, y), new ArrayList<>());
+				elementMap.put(new Point2D(x, y), new ArrayList<>(2));
 		readLevelData(level);
 	}
 
