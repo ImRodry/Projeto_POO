@@ -163,6 +163,7 @@ public class GameEngine implements Observer {
 	 */
 	public GameElement getSpecialIn(Point2D p) {
 		ArrayList<GameElement> elements = getElementsIn(p);
+		Collections.reverse(elements);
 		elements.sort((a, b) -> b.getLayer() - a.getLayer());
 		for (GameElement e : elements)
 			if (e.isSpecial())

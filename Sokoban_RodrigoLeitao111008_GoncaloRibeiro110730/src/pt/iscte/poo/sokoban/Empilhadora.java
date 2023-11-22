@@ -62,7 +62,7 @@ public class Empilhadora extends Movable {
 			} else if (special instanceof Consumable) {
 				((Consumable) special).consume(this);
 				energy--;
-			} else if (special instanceof Buraco) {
+			} else if (special instanceof Buraco && !((Buraco) special).isCovered()) {
 				interactWithHole((Buraco) special);
 			} else if (special instanceof Teleporte) {
 				// Whe
