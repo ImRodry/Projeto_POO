@@ -50,8 +50,8 @@ public class Empilhadora extends Movable {
 			return didMove;
 		// Move segundo a direcao gerada, mas so' se estiver dentro dos limites
 		Point2D newPosition = getPosition().plus(dir.asVector());
-		GameEngine ge = GameEngine.getInstance();
-		GameElement special = ge.getSpecialIn(newPosition);
+		GameEngine engine = GameEngine.getInstance();
+		GameElement special = engine.getSpecialIn(newPosition);
 		if (special != null) {
 			if (special instanceof Consumable && !((Consumable) special).canConsume(this)
 					|| special instanceof Movable && !special.isTransposable() && !((Movable) special).canMoveTo(dir))
@@ -66,12 +66,13 @@ public class Empilhadora extends Movable {
 			} else if (special instanceof Buraco) {
 				interactWithHole((Buraco) special);
 			} else if (special instanceof Teleporte) {
-				Point2D p = ((Teleporte) special).getTeleportPair(GameEngine.getInstance().getTeleportes());
-				if (p != null)
-					moveTo(p);
+				// Whe
+				Teleporte p = engine.getTeleportPair((Teleporte) special);
+				if (!p.isCovered())
+					setPosition(p.getPosition());
 			}
 			didMove = true;
-		} else if ((ge.isWithinBounds(newPosition) && canMoveTo(dir))) {
+		} else if ((engine.isWithinBounds(newPosition) && canMoveTo(dir))) {
 			setPosition(newPosition);
 			didMove = true;
 			energy--;

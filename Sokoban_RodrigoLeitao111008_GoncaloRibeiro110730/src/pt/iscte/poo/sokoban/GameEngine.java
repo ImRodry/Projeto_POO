@@ -140,8 +140,8 @@ public class GameEngine implements Observer {
 		return level.getElementMap().get(position);
 	}
 
-	public ArrayList<Teleporte> getTeleportes() {
-		return level.getTeleportes();
+	public Teleporte getTeleportPair(Teleporte tp) {
+		return level.getTeleportes().stream().filter(t -> t != tp).findFirst().get();
 	}
 
 	/**

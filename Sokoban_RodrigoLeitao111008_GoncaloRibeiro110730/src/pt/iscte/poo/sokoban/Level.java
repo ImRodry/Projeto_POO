@@ -14,7 +14,7 @@ public class Level {
 	private int level = 0;
 	private ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
 	private ArrayList<Alvo> targets = new ArrayList<>();
-	private ArrayList<Teleporte> teleportes = new ArrayList<>();
+	private ArrayList<Teleporte> teleportes;
 	private Empilhadora bobcat;
 	private int boxCount;
 
@@ -51,13 +51,18 @@ public class Level {
 						targets.add((Alvo) newElement);
 					else if (newElement instanceof Caixote)
 						boxCount++;
-					else if (newElement instanceof Teleporte)
+					else if (newElement instanceof Teleporte) {
+						if (teleportes == null)
+							teleportes = new ArrayList<>(2);
 						teleportes.add((Teleporte) newElement);
+					}
 				}
 				y++;
 			}
 			System.out.println("Fim");
 			s.close();
+			if (teleportes != null && teleportes.size() != 2)
+				throw new IllegalArgumentException("There must be exactly 2 teleporters");
 			gui.update();
 		} catch (FileNotFoundException error) {
 			System.out.println("Erro");

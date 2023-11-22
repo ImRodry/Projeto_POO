@@ -11,24 +11,21 @@ public abstract class Movable extends GameElement {
 
 	public boolean move(Direction dir) {
 		Point2D newPosition = getPosition().plus(dir.asVector());
-		if (GameEngine.getInstance().isWithinBounds(newPosition) && canMoveTo(dir)) {
-			GameElement special = GameEngine.getInstance().getSpecialIn(newPosition);
+		GameEngine engine = GameEngine.getInstance();
+		if (engine.isWithinBounds(newPosition) && canMoveTo(dir)) {
+			GameElement special = engine.getSpecialIn(newPosition);
 			// Will move regardless of implementation
 			setPosition(newPosition);
 			if (special instanceof Buraco)
 				interactWithHole((Buraco) special);
 			else if (special instanceof Teleporte){
-				Point2D p = ((Teleporte) special).getTeleportPair(GameEngine.getInstance().getTeleportes());
-				if (p != null)
-					moveTo(p);
+				Teleporte p = engine.getTeleportPair((Teleporte) special);
+				if (!p.isCovered())
+					setPosition(p.getPosition());
 			}
 			return true;
 		}
 		return false;
-	}
-
-	public void moveTo(Point2D p) {
-		this.setPosition(p);
 	}
 
 	public boolean canMoveTo(Direction d) {
