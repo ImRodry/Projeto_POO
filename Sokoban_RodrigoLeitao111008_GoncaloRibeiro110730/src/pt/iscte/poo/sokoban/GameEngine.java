@@ -1,6 +1,7 @@
 package pt.iscte.poo.sokoban;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.awt.event.KeyEvent;
 
 import pt.iscte.poo.gui.ImageMatrixGUI;
@@ -84,10 +85,12 @@ public class GameEngine implements Observer {
 			Empilhadora bobcat = level.getBobcat();
 			if (key == KeyEvent.VK_SPACE) {
 				restart();
-			} else if (bobcat.move(Direction.directionFor(key)))
-				moves++;
+			} else {
+				if (bobcat.move(Direction.directionFor(key)))
+					moves++;
+				gui.update();
+			}
 			updateStatusBar();
-			gui.update();
 			if (bobcat.getEnergy() <= 0)
 				restart("Ficou sem energia!");
 			else if (level.getBoxCount() < level.getTargets().size())
@@ -190,6 +193,7 @@ public class GameEngine implements Observer {
 	}
 
 	public void restart(String s) {
+		gui.update();
 		gui.setMessage(s);
 		// TODO fix message rendering blank when losing
 		// This causes the game to go unplayable and requires a restart
