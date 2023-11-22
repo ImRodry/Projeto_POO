@@ -32,12 +32,11 @@ public class Empilhadora extends Movable {
 		return energy;
 	}
 
-	public void consumeBattery() {
-		energy += 50;
-	}
-
-	public void consumeHammer() {
-		hammer = true;
+	public void consume(Consumable c) {
+		if (c instanceof Bateria)
+			energy += 50;
+		else if (c instanceof Martelo)
+			hammer = true;
 	}
 
 	public boolean getHammer() {

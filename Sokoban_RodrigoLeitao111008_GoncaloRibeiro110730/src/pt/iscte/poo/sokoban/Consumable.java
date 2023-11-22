@@ -9,6 +9,7 @@ public abstract class Consumable extends GameElement {
 	}
 	
 	public void consume(Empilhadora e) {
+		e.consume(this);
 		GameEngine.getInstance().remove(this);
 	}
 
