@@ -68,8 +68,6 @@ public class GameEngine implements Observer {
 			username = gui.askUser("Insira o seu nome");
 		}
 
-		if (hasEasterEgg())
-			gui.setMessage("SIUUUU");
 		// Criar o cenario de jogo
 		level = new Level(0);
 
@@ -78,6 +76,8 @@ public class GameEngine implements Observer {
 				"Level: " + level.getLevel() + " - Player: " + username + " - Moves: " + moves + " - Energy: "
 						+ level.getBobcat().getEnergy());
 		gui.update();
+		if (hasEasterEgg())
+			gui.setMessage("SIUUUU");
 	}
 
 	// O metodo update() e' invocado automaticamente sempre que o utilizador carrega
