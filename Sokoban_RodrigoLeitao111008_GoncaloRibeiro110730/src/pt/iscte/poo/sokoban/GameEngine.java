@@ -62,7 +62,7 @@ public class GameEngine implements Observer {
 		}
 
 		// Criar o cenario de jogo
-		level = new Level(6);
+		level = new Level(0);
 
 		// Escrever uma mensagem na StatusBar
 		gui.setStatusMessage(
