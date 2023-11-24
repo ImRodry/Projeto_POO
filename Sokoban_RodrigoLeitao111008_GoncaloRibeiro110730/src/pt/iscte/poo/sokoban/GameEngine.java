@@ -2,7 +2,12 @@ package pt.iscte.poo.sokoban;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 import pt.iscte.poo.gui.ImageMatrixGUI;
 import pt.iscte.poo.observer.Observed;
@@ -30,12 +35,13 @@ public class GameEngine implements Observer {
 	// Dimensoes da grelha de jogo
 	public static final int GRID_HEIGHT = 10;
 	public static final int GRID_WIDTH = 10;
+	public static final String STATS_FILE = "stats.txt";
 
 	private static GameEngine INSTANCE;
 	private ImageMatrixGUI gui = ImageMatrixGUI.getInstance();;
 	private String username;
 	private Level level;
-	private int moves = 0;
+	private int moves, restarts;
 
 	private GameEngine() {
 	}
@@ -185,11 +191,65 @@ public class GameEngine implements Observer {
 			updateStatusBar();
 		} catch (IllegalArgumentException e) {
 			// if creating the level errors it means there are no more levels, thus we won
-			gui.setMessage("Ganhaste!");
+			int score = computeScore();
+			int position = updateLeaderboard(score);
+			gui.setMessage((position == -1 ? "Terminaste o jogo! Infelizmente não ficaste no top 3"
+					: "Parabéns! Ficaste em " + (position + 1) + "º lugar!") + "\nScore: " + score);
 			gui.clearImages();
 			System.exit(0);
 		}
 		return true;
+	}
+
+	private int computeScore() {
+		// Mean amount of moves to complete the game. A lower amount is possible (293)
+		// getting much more than this will lead to a negative score
+		int moveThreshold = 350;
+		return level.getBobcat().getEnergy() * 5 - (moves - moveThreshold) * 2 - restarts * 50;
+	}
+
+	private int updateLeaderboard(int score) {
+		ArrayList<String[]> leaderboard = readLearderboard();
+		String[] newEntry = { username, String.valueOf(score) };
+		leaderboard.add(newEntry);
+		leaderboard.sort((a, b) -> Integer.parseInt(b[1]) - Integer.parseInt(a[1]));
+		if (leaderboard.size() > 3)
+			leaderboard.remove(3);
+		writeLeaderboard(leaderboard);
+		return leaderboard.indexOf(newEntry);
+	}
+
+	private ArrayList<String[]> readLearderboard() {
+		ArrayList<String[]> leaderboard = new ArrayList<>(5);
+
+		File f = new File(STATS_FILE);
+		try {
+			Scanner s = new Scanner(f);
+			while (s.hasNextLine())
+				leaderboard.add(s.nextLine().split(" - "));
+
+			s.close();
+		} catch (FileNotFoundException err) {
+			try {
+				f.createNewFile();
+			} catch (IOException e) {
+			}
+		}
+		return leaderboard;
+	}
+
+	private void writeLeaderboard(ArrayList<String[]> leaderboard) {
+		File f = new File(STATS_FILE);
+
+		try {
+			PrintWriter pw = new PrintWriter(f);
+			for (String[] entry : leaderboard)
+				pw.println(String.join(" - ", entry));
+
+			pw.close();
+		} catch (FileNotFoundException e) {
+			// TODO: handle exception
+		}
 	}
 
 	public void restart(String s) {
@@ -202,6 +262,7 @@ public class GameEngine implements Observer {
 	}
 
 	public void restart() {
+		restarts++;
 		level = new Level(level.getLevel());
 	}
 }
