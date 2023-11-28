@@ -172,6 +172,10 @@ public class GameEngine implements Observer {
 		return level.getTeleportes().stream().filter(t -> t != tp).findFirst().get();
 	}
 
+	public ArrayList<Alvo> getTargets() {
+		return level.getTargets();
+	}
+
 	public boolean hasEasterEgg() {
 		return username.equalsIgnoreCase("ronaldo");
 	}
