@@ -18,4 +18,11 @@ public class ParedeRachada extends Consumable {
 	public boolean canConsume(Empilhadora e) {
 		return e.getHammer();
 	}
+
+	@Override
+	public String getName() {
+		if (GameEngine.getInstance().hasEasterEgg())
+			return "ParedeRachadaRelva";
+		return super.getName();
+	}
 }
