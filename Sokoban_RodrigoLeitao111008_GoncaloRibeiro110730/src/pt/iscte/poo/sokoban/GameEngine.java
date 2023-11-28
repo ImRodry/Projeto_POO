@@ -261,5 +261,6 @@ public class GameEngine implements Observer {
 	public void restart() {
 		restarts++;
 		level = new Level(level.getLevel());
+		updateStatusBar();
 	}
 }
