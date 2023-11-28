@@ -41,7 +41,7 @@ public class GameEngine implements Observer {
 	private ImageMatrixGUI gui = ImageMatrixGUI.getInstance();;
 	private String username;
 	private Level level;
-	private int moves, restarts;
+	private int moves, restarts, score;
 
 	private GameEngine() {
 	}
@@ -92,8 +92,10 @@ public class GameEngine implements Observer {
 			if (key == KeyEvent.VK_SPACE) {
 				restart();
 			} else {
-				if (bobcat.move(Direction.directionFor(key)))
+				if (bobcat.move(Direction.directionFor(key))) {
 					moves++;
+					level.moves();
+				}
 				gui.update();
 			}
 			updateStatusBar();
@@ -185,14 +187,16 @@ public class GameEngine implements Observer {
 		if (!level.checkEnd())
 			return false;
 		int oldLevel = level.getLevel();
-		gui.setMessage("Nível " + oldLevel + " concluído!");
+		score += level.computeScore();
+		int levelScore = level.computeScore();
+		gui.setMessage("Nível " + oldLevel + " concluído!\nCom pontuação de: " + levelScore);
 		try {
 			level = new Level(oldLevel + 1);
 			updateStatusBar();
 		} catch (IllegalArgumentException e) {
 			// if creating the level errors it means there are no more levels, thus we won
-			int score = computeScore();
-			int position = updateLeaderboard(score);
+			int position = updateLeaderboard();
+			score += restarts * 50;
 			gui.setMessage((position == -1 ? "Terminaste o jogo! Infelizmente não ficaste no top 3"
 					: "Parabéns! Ficaste em " + (position + 1) + "º lugar!") + "\nScore: " + score);
 			gui.clearImages();
@@ -201,16 +205,9 @@ public class GameEngine implements Observer {
 		return true;
 	}
 
-	private int computeScore() {
-		// Mean amount of moves to complete the game. A lower amount is possible (293)
-		// getting much more than this will lead to a negative score
-		int moveThreshold = 350;
-		return level.getBobcat().getEnergy() * 5 - (moves - moveThreshold) * 2 - restarts * 50;
-	}
-
-	private int updateLeaderboard(int score) {
+	private int updateLeaderboard() {
 		ArrayList<String[]> leaderboard = readLearderboard();
-		String[] newEntry = { username, String.valueOf(score) };
+		String[] newEntry = { username, String.valueOf(score + restarts * 50) };
 		leaderboard.add(newEntry);
 		leaderboard.sort((a, b) -> Integer.parseInt(b[1]) - Integer.parseInt(a[1]));
 		if (leaderboard.size() > 3)

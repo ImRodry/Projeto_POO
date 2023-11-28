@@ -15,8 +15,9 @@ public class Level {
 	private ImageMatrixGUI gui = ImageMatrixGUI.getInstance();
 	private ArrayList<Alvo> targets = new ArrayList<>(2);
 	private ArrayList<Teleporte> teleportes;
+	private final static int[] LEVEL_SCORES = new int[] { 20, 50, 80, 80, 45, 60, 20 };
 	private Empilhadora bobcat;
-	private int boxCount;
+	private int boxCount, moves;
 
 	public Level(int level) {
 		this.level = level;
@@ -90,7 +91,7 @@ public class Level {
 	public ArrayList<Alvo> getTargets() {
 		return targets;
 	}
-	
+
 	public ArrayList<Teleporte> getTeleportes() {
 		return teleportes;
 	}
@@ -103,7 +104,15 @@ public class Level {
 		boxCount--;
 	}
 
+	public void moves() {
+		moves++;
+	}
+
 	public boolean checkEnd() {
 		return targets.stream().allMatch(t -> t.isCovered());
+	}
+
+	public int computeScore() {
+		return getBobcat().getEnergy() * 2 - (moves - LEVEL_SCORES[level]) * 2;
 	}
 }
