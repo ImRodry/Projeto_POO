@@ -220,6 +220,12 @@ public class GameEngine implements Observer {
 		ArrayList<String[]> leaderboard = new ArrayList<>(5);
 
 		File f = new File(STATS_FILE);
+		if (!f.exists())
+			try {
+				f.createNewFile();
+			} catch (IOException e) {
+			}
+
 		try {
 			Scanner s = new Scanner(f);
 			while (s.hasNextLine())
@@ -227,10 +233,6 @@ public class GameEngine implements Observer {
 
 			s.close();
 		} catch (FileNotFoundException err) {
-			try {
-				f.createNewFile();
-			} catch (IOException e) {
-			}
 		}
 		return leaderboard;
 	}
@@ -245,7 +247,6 @@ public class GameEngine implements Observer {
 
 			pw.close();
 		} catch (FileNotFoundException e) {
-			// TODO: handle exception
 		}
 	}
 
