@@ -1,6 +1,7 @@
 package pt.iscte.poo.sokoban;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.Scanner;
 import java.awt.event.KeyEvent;
@@ -131,7 +132,8 @@ public class GameEngine implements Observer {
 	}
 
 	public boolean hasEasterEgg() {
-		return username.equalsIgnoreCase("ronaldo");
+		// hmmm I wonder what this could be
+		return username.equalsIgnoreCase(new String(Base64.getDecoder().decode("cm9uYWxkbw==")));
 	}
 
 	/**
