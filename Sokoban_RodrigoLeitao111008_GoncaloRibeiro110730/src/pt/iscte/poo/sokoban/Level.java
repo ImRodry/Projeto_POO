@@ -43,7 +43,7 @@ public class Level {
 					System.out.println(point);
 					GameElement newElement = GameElement.create(c, point);
 					add(newElement);
-					// If it is layer 2 it will need a background
+					// If it is above layer 0 it will need a background
 					if (newElement.getLayer() > 0)
 						add(new Chao(point));
 					if (newElement instanceof Empilhadora)

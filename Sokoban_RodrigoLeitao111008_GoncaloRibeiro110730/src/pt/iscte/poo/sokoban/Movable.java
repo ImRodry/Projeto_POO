@@ -4,7 +4,6 @@ import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 
 public abstract class Movable extends GameElement {
-
 	public Movable(Point2D position, int layer) {
 		super(position, layer, false, true);
 	}
@@ -18,7 +17,6 @@ public abstract class Movable extends GameElement {
 			setPosition(newPosition);
 			if (special instanceof Interactable)
 				((Interactable) special).interact(this);
-
 			return true;
 		}
 		return false;

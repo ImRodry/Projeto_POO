@@ -21,15 +21,15 @@ public class Empilhadora extends Movable {
 			return "Ronaldo";
 		String imagePrefix = "Empilhadora_";
 		switch (lastDirection) {
-			case UP:
-				return imagePrefix + "U";
-			default:
-			case DOWN:
-				return imagePrefix + "D";
-			case LEFT:
-				return imagePrefix + "L";
-			case RIGHT:
-				return imagePrefix + "R";
+		case UP:
+			return imagePrefix + "U";
+		default:
+		case DOWN:
+			return imagePrefix + "D";
+		case LEFT:
+			return imagePrefix + "L";
+		case RIGHT:
+			return imagePrefix + "R";
 		}
 	}
 
@@ -52,10 +52,8 @@ public class Empilhadora extends Movable {
 		boolean didMove = false;
 		if (energy <= 0)
 			return didMove;
-		// We intentionally save the last direction even if there was no movement
-		// to represent the attempt of a movement
+		// We intentionally save the last direction even if there was no movement to represent the attempt of a movement
 		lastDirection = dir;
-		// Move segundo a direcao gerada, mas so' se estiver dentro dos limites
 		Point2D newPosition = getPosition().plus(dir.asVector());
 		GameEngine engine = GameEngine.getInstance();
 		GameElement special = engine.getSpecialIn(newPosition);
