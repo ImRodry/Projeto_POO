@@ -107,22 +107,11 @@ public class GameEngine implements Observer {
 		newList.add(e);
 		if (e instanceof Movable) {
 			Interactable oldInteractable = (Interactable) oldList.stream()
-					.filter(em -> (em instanceof Interactable && !(em instanceof Buraco))).findFirst().orElse(null);
-			Interactable newInteractable = (Interactable) newList.stream()
-					.filter(em -> (em instanceof Interactable && !(em instanceof Buraco))).findFirst().orElse(null);
+					.filter(em -> (em instanceof Interactable && !(em instanceof Buraco))).findAny().orElse(null);
 			if (oldInteractable != null) {
-				if (oldInteractable instanceof Alvo && e instanceof Caixote) {
-					oldInteractable.setCovered(false);
+				oldInteractable.setCovered(false);
+				if (e instanceof Caixote)
 					((Caixote) e).setOnTarget(false);
-				} else if (!(oldInteractable instanceof Alvo))
-					oldInteractable.setCovered(false);
-			}
-			if (newInteractable != null) {
-				if (newInteractable instanceof Alvo && e instanceof Caixote) {
-					newInteractable.setCovered(true);
-					((Caixote) e).setOnTarget(true);
-				} else if (!(newInteractable instanceof Alvo))
-					newInteractable.setCovered(true);
 			}
 		}
 	}
@@ -132,7 +121,9 @@ public class GameEngine implements Observer {
 	}
 
 	public Teleporte getTeleportPair(Teleporte tp) {
-		return level.getTeleportes().stream().filter(t -> t != tp).findFirst().get();
+		// We intentionally want to use the strict equality operator instead of .equals since the intances are equal
+		// We also use findAny instead of findFirst since this is more performant and there's only 1 element anyway
+		return level.getTeleportes().stream().filter(t -> t != tp).findAny().get();
 	}
 
 	public ArrayList<Alvo> getTargets() {

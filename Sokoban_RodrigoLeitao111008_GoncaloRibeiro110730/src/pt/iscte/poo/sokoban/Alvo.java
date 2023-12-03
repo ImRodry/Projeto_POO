@@ -16,7 +16,9 @@ public class Alvo extends Interactable {
 
 	@Override
 	public void interact(Movable m) {
-		if (m instanceof Caixote)
+		if (m instanceof Caixote) {
 			setCovered(true);
+			((Caixote) m).setOnTarget(true);
+		}
 	}
 }

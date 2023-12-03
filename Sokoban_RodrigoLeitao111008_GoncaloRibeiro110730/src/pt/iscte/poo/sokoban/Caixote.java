@@ -30,7 +30,9 @@ public class Caixote extends Movable {
 	public boolean move(Direction dir) {
 		GameEngine engine = GameEngine.getInstance();
 		if (engine.hasEasterEgg()) {
-			setPosition(engine.getTargets().stream().filter(t -> !t.isCovered()).findFirst().get().getPosition());
+			Alvo target = engine.getTargets().stream().filter(t -> !t.isCovered()).findAny().get();
+			setPosition(target.getPosition());
+			target.interact(this);
 			ImageMatrixGUI.getInstance().setMessage("Ronaldo chuta e marca! GOOOOOOLOOOOOOO");
 			return true;
 		}
