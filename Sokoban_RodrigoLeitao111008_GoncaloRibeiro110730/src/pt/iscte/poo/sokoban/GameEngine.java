@@ -93,8 +93,7 @@ public class GameEngine implements Observer {
 				restart();
 			} else {
 				if (bobcat.move(Direction.directionFor(key))) {
-					moves++;
-					level.moves();
+					level.countMove();
 				}
 				gui.update();
 			}
@@ -111,7 +110,8 @@ public class GameEngine implements Observer {
 
 	public void updateStatusBar() {
 		gui.setStatusMessage(
-				"Level: " + level.getLevel() + " - Player: " + username + " - Moves: " + moves + " - Energy: "
+				"Level: " + level.getLevel() + " - Player: " + username + " - Moves: " + (moves + level.getMoves())
+						+ " - Energy: "
 						+ level.getBobcat().getEnergy());
 	}
 
@@ -187,9 +187,10 @@ public class GameEngine implements Observer {
 		if (!level.checkEnd())
 			return false;
 		int oldLevel = level.getLevel();
-		score += level.computeScore();
 		int levelScore = level.computeScore();
-		gui.setMessage("Nível " + oldLevel + " concluído!\nCom pontuação de: " + levelScore);
+		score += levelScore;
+		moves += level.getMoves();
+		gui.setMessage("Nível " + oldLevel + " concluído!\nPontuação: " + levelScore);
 		try {
 			level = new Level(oldLevel + 1);
 			updateStatusBar();

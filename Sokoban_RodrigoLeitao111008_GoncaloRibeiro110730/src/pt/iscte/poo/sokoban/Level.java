@@ -104,8 +104,12 @@ public class Level {
 		boxCount--;
 	}
 
-	public void moves() {
+	public void countMove() {
 		moves++;
+	}
+
+	public int getMoves() {
+		return moves;
 	}
 
 	public boolean checkEnd() {
