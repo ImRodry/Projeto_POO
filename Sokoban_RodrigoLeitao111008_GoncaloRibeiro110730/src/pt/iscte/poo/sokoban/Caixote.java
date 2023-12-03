@@ -1,5 +1,7 @@
 package pt.iscte.poo.sokoban;
 
+import pt.iscte.poo.gui.ImageMatrixGUI;
+import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 
 public class Caixote extends Movable {
@@ -19,7 +21,20 @@ public class Caixote extends Movable {
 
 	@Override
 	public String getName() {
+		if (GameEngine.getInstance().hasEasterEgg())
+			return "Bola";
 		return super.getName() + (onTarget ? "_no_alvo" : "");
+	}
+
+	@Override
+	public boolean move(Direction dir) {
+		GameEngine engine = GameEngine.getInstance();
+		if (engine.hasEasterEgg()) {
+			setPosition(engine.getTargets().stream().filter(t -> !t.isCovered()).findFirst().get().getPosition());
+			ImageMatrixGUI.getInstance().setMessage("Ronaldo chuta e marca! GOOOOOOLOOOOOOO");
+			return true;
+		}
+		return super.move(dir);
 	}
 
 	@Override
