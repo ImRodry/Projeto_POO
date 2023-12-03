@@ -116,7 +116,7 @@ public class Level {
 		return targets.stream().allMatch(t -> t.isCovered());
 	}
 
-	public int computeScore() {
-		return getBobcat().getEnergy() * 2 - (moves - LEVEL_SCORES[level]) * 2;
+	public int computeScore(int restarts) {
+		return getBobcat().getEnergy() * 2 - (moves - LEVEL_SCORES[level]) * 2 - restarts * 50;
 	}
 }

@@ -202,7 +202,9 @@ public class GameEngine implements Observer {
 		if (!level.checkEnd())
 			return false;
 		int oldLevel = level.getLevel();
-		int levelScore = level.computeScore();
+		int levelScore = level.computeScore(restarts);
+		// We only keep the restarts in the GameEngine because the level class may be recreated
+		restarts = 0;
 		score += levelScore;
 		moves += level.getMoves();
 		gui.setMessage("Nível " + oldLevel + " concluído!\nPontuação: " + levelScore);
@@ -210,11 +212,11 @@ public class GameEngine implements Observer {
 			level = new Level(oldLevel + 1);
 			updateStatusBar();
 		} catch (IllegalArgumentException e) {
-			// if creating the level errors it means there are no more levels, thus we won
+			// if creating the level errors it means there are no more levels, thus the game is over
 			int position = updateLeaderboard();
 			score += restarts * 50;
 			gui.setMessage((position == -1 ? "Terminaste o jogo! Infelizmente não ficaste no top 3"
-					: "Parabéns! Ficaste em " + (position + 1) + "º lugar!") + "\nScore: " + score);
+					: "Parabéns! Ficaste em " + (position + 1) + "º lugar!") + "\nPontuação total: " + score);
 			gui.clearImages();
 			System.exit(0);
 		}
@@ -249,6 +251,7 @@ public class GameEngine implements Observer {
 
 			s.close();
 		} catch (FileNotFoundException err) {
+			// We should never reach this point because we create the file if it doesn't exist
 		}
 		return leaderboard;
 	}
