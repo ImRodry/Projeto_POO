@@ -254,9 +254,6 @@ public class GameEngine implements Observer {
 	public void restart(String s) {
 		gui.update();
 		gui.setMessage(s);
-		// TODO fix message rendering blank when losing
-		// This causes the game to go unplayable and requires a restart
-		// doesn't happen if the next line is commented out
 		restart();
 	}
 
