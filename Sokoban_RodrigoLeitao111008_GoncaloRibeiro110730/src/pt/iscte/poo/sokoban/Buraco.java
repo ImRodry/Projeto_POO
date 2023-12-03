@@ -14,4 +14,9 @@ public class Buraco extends Interactable {
 			return "BuracoRelva";
 		return super.getName();
 	}
+
+	@Override
+	public void interact(Movable m) {
+		m.interactWithHole(this);
+	}
 }

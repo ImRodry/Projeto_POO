@@ -14,4 +14,11 @@ public class Teleporte extends Interactable {
 			return "TeleporteRelva";
 		return super.getName();
 	}
+
+	@Override
+	public void interact(Movable m) {
+		Teleporte other = GameEngine.getInstance().getTeleportPair(this);
+		if (!other.isCovered())
+			m.setPosition(other.getPosition());
+	}
 }

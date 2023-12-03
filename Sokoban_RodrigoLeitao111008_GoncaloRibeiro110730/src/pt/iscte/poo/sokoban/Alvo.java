@@ -14,4 +14,10 @@ public class Alvo extends Interactable {
 			return "Baliza";
 		return super.getName();
 	}
+
+	@Override
+	public void interact(Movable m) {
+		if (m instanceof Caixote)
+			setCovered(true);
+	}
 }

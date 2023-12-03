@@ -16,13 +16,9 @@ public abstract class Movable extends GameElement {
 			GameElement special = engine.getSpecialIn(newPosition);
 			// Will move regardless of implementation
 			setPosition(newPosition);
-			if (special instanceof Buraco && !((Buraco) special).isCovered())
-				interactWithHole((Buraco) special);
-			else if (special instanceof Teleporte) {
-				Teleporte p = engine.getTeleportPair((Teleporte) special);
-				if (!p.isCovered())
-					setPosition(p.getPosition());
-			}
+			if (special instanceof Interactable)
+				((Interactable) special).interact(this);
+
 			return true;
 		}
 		return false;

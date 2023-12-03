@@ -16,4 +16,6 @@ public abstract class Interactable extends GameElement {
     public void setCovered(boolean covered) {
         this.covered = covered;
     }
+
+    public abstract void interact(Movable m);
 }
