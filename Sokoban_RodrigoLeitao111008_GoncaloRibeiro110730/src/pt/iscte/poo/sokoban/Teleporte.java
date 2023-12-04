@@ -17,7 +17,9 @@ public class Teleporte extends Interactable {
 	@Override
 	public void interact(Movable m) {
 		Teleporte other = GameEngine.getInstance().getTeleportPair(this);
-		if (!other.isCovered())
+		if (!other.isCovered()) {
 			m.setPosition(other.getPosition());
+			other.setCovered(true);
+		}
 	}
 }
