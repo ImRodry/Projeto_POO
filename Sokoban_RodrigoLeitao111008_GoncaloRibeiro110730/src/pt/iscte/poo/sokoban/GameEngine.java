@@ -43,7 +43,7 @@ public class GameEngine implements Observer {
 		gui.setSize(GRID_HEIGHT, GRID_WIDTH); // 2. configurar as dimensoes
 		gui.registerObserver(this); // 3. registar o objeto ativo GameEngine como observador da GUI
 		gui.go(); // 4. lancar a GUI
-		while (username == null) {
+		while (username == null || username.equals("")) {
 			username = gui.askUser("Insira o seu nome");
 		}
 		// Criar o cenario de jogo
