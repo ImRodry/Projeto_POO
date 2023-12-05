@@ -47,7 +47,7 @@ public class GameEngine implements Observer {
 			username = gui.askUser("Insira o seu nome");
 		}
 		// Criar o cenario de jogo
-		level = new Level(1);
+		level = new Level(0);
 		// Escrever uma mensagem na StatusBar
 		gui.setStatusMessage("Level: " + level.getLevel() + " - Player: " + username + " - Moves: " + moves
 				+ " - Energy: " + level.getBobcat().getEnergy());
