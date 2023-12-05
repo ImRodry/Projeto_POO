@@ -59,7 +59,8 @@ public class Empilhadora extends Movable {
 		GameElement special = engine.getSpecialIn(newPosition);
 		if (special != null) {
 			if (special instanceof Consumable && !((Consumable) special).canConsume(this)
-					|| special instanceof Movable && !special.isTransposable() && !((Movable) special).canMoveTo(dir))
+					|| special instanceof Movable && !special.isTransposable()
+							&& !((Movable) special).canMoveTo(newPosition.plus(dir.asVector())))
 				return didMove;
 			setPosition(newPosition);
 			if (special instanceof Movable && !special.isTransposable()) {
@@ -75,7 +76,7 @@ public class Empilhadora extends Movable {
 				((Interactable) special).interact(this);
 			}
 			didMove = true;
-		} else if ((engine.isWithinBounds(newPosition) && canMoveTo(dir))) {
+		} else if ((engine.isWithinBounds(newPosition) && canMoveTo(newPosition))) {
 			setPosition(newPosition);
 			didMove = true;
 			energy--;

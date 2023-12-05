@@ -86,6 +86,8 @@ abstract class GameElement implements ImageTile {
 			return new BigStone(point);
 		case 's':
 			return new SmallStone(point);
+		case '@':
+			return new Transportador(point);
 		default:
 			throw new IllegalArgumentException("Unknown symbol");
 		}

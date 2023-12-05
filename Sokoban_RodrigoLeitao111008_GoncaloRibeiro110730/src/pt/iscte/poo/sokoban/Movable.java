@@ -15,7 +15,7 @@ public abstract class Movable extends GameElement {
 	public boolean move(Direction dir) {
 		Point2D newPosition = getPosition().plus(dir.asVector());
 		GameEngine engine = GameEngine.getInstance();
-		if (engine.isWithinBounds(newPosition) && canMoveTo(dir)) {
+		if (engine.isWithinBounds(newPosition) && canMoveTo(newPosition)) {
 			GameElement special = engine.getSpecialIn(newPosition);
 			// Will move regardless of implementation
 			setPosition(newPosition);
@@ -26,8 +26,8 @@ public abstract class Movable extends GameElement {
 		return false;
 	}
 
-	public boolean canMoveTo(Direction d) {
-		for (GameElement g : GameEngine.getInstance().getElementsIn(getPosition().plus(d.asVector()))) {
+	public boolean canMoveTo(Point2D position) {
+		for (GameElement g : GameEngine.getInstance().getElementsIn(position)) {
 			if (!g.isTransposable())
 				return false;
 		}
