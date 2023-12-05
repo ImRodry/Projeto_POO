@@ -7,7 +7,7 @@ abstract class GameElement implements ImageTile {
 	private Point2D position;
 	private final int layer;
 	private boolean transposable;
-	private final boolean special;
+	private boolean special;
 
 	public GameElement(Point2D position, int layer, boolean transposable, boolean special) {
 		this.position = position;
@@ -50,6 +50,10 @@ abstract class GameElement implements ImageTile {
 
 	public boolean isSpecial() {
 		return special;
+	}
+
+	public void setSpecial(boolean special) {
+		this.special = special;
 	}
 
 	public static GameElement create(char c, Point2D point) {
