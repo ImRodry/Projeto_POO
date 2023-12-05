@@ -10,7 +10,7 @@ public class Empilhadora extends Movable {
 	private boolean hasUsedEasterEgg = false;
 
 	public Empilhadora(Point2D initialPosition) {
-		super(initialPosition, 2);
+		super(initialPosition, 2, false);
 		// Must be defined here to ensure the easter egg is correctly calculated
 		energy = GameEngine.getInstance().hasEasterEgg() ? 10000 : 100;
 	}
@@ -65,6 +65,9 @@ public class Empilhadora extends Movable {
 			if (special instanceof Movable && !special.isTransposable()) {
 				((Movable) special).move(dir);
 				energy = Math.max(0, energy - 2);
+				GameElement secondSpecial = engine.getSpecialIn(newPosition);
+				if (secondSpecial != null && secondSpecial instanceof Interactable)
+					((Interactable) secondSpecial).interact(this);
 			} else if (special instanceof Consumable) {
 				((Consumable) special).consume(this);
 				energy--;

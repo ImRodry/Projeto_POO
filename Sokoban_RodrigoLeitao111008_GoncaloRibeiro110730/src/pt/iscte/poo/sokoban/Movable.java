@@ -5,7 +5,11 @@ import pt.iscte.poo.utils.Point2D;
 
 public abstract class Movable extends GameElement {
 	public Movable(Point2D position, int layer) {
-		super(position, layer, false, true);
+		this(position, layer, true);
+	}
+
+	public Movable(Point2D position, int layer, boolean special) {
+		super(position, layer, false, special);
 	}
 
 	public boolean move(Direction dir) {
