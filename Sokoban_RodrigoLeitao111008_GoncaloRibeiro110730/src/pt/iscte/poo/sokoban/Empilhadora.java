@@ -37,15 +37,15 @@ public class Empilhadora extends Movable {
 		return energy;
 	}
 
+	public boolean getHammer() {
+		return hammer;
+	}
+
 	public void consume(Consumable c) {
 		if (c instanceof Bateria)
 			energy += 50;
 		else if (c instanceof Martelo)
 			hammer = true;
-	}
-
-	public boolean getHammer() {
-		return hammer;
 	}
 
 	public boolean move(Direction dir) {
