@@ -41,6 +41,8 @@ public class Caixote extends Movable {
 
 	@Override
 	public void interactWithHole(Buraco hole) {
-		GameEngine.getInstance().remove(this);
+		GameEngine e = GameEngine.getInstance();
+		e.remove(this);
+		e.destroyBox();
 	}
 }

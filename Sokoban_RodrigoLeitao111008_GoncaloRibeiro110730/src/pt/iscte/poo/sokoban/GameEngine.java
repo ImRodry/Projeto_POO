@@ -131,6 +131,10 @@ public class GameEngine implements Observer {
 		return level.getTargets();
 	}
 
+	public void destroyBox() {
+		level.destroyBox();
+	}
+
 	public boolean hasEasterEgg() {
 		// hmmm I wonder what this could be
 		return username.equalsIgnoreCase(new String(Base64.getDecoder().decode("cm9uYWxkbw==")));
