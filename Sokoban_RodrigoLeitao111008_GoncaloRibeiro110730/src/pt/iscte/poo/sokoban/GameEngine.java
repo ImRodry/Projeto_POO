@@ -122,7 +122,7 @@ public class GameEngine implements Observer {
 	}
 
 	public Teleporte getTeleportPair(Teleporte tp) {
-		// We intentionally want to use the strict equality operator instead of .equals since the intances are equal
+		// We intentionally want to use the inequality operator instead of .equals since the intances are equal
 		// We also use findAny instead of findFirst since this is more performant and there's only 1 element anyway
 		return level.getTeleportes().stream().filter(t -> t != tp).findAny().get();
 	}

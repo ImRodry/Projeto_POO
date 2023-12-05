@@ -35,12 +35,9 @@ public class Level {
 			int y = 0;
 			while (s.hasNext()) {
 				String str = s.nextLine();
-				System.out.println(str);
 				for (int x = 0; x < GameEngine.GRID_WIDTH; x++) {
 					char c = str.charAt(x);
-					System.out.println(c);
 					Point2D point = new Point2D(x, y);
-					System.out.println(point);
 					GameElement newElement = GameElement.create(c, point);
 					add(newElement);
 					// If it is above layer 0 it will need a background
@@ -60,13 +57,11 @@ public class Level {
 				}
 				y++;
 			}
-			System.out.println("Fim");
 			s.close();
 			if (teleportes != null && teleportes.size() != 2)
 				throw new IllegalArgumentException("There must be exactly 2 teleporters");
 			gui.update();
 		} catch (FileNotFoundException error) {
-			System.out.println("Erro");
 			throw new IllegalArgumentException("Couldn't find the file for level " + level);
 		}
 	}
